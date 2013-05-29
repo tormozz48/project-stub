@@ -1,0 +1,30 @@
+/** @requires BEM */
+/** @requires BEM.DOM */
+
+(function(undefined) {
+
+BEM.DOM.decl({ block: 'b-arrow', modName: 'direction', modVal: 'forward'}, {
+
+    onSetMod : {
+
+        'js' : function() {
+            
+            this.__base.apply(this, arguments);
+
+            var _this = this;
+
+        	this.bindToDoc('mouseleave', function(e){
+        		_this.delMod('visible');
+        	});
+
+        }
+
+    }
+
+}, {
+
+    // live : function() { }
+
+});
+
+})();

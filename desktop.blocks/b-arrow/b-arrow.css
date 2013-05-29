@@ -1,0 +1,12 @@
+.b-arrow
+{
+	position: fixed;
+	top: 50px;
+
+	width: 64px;
+	height: 64px;
+	
+	visibility: hidden;
+
+	cursor: pointer;
+}

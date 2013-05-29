@@ -1,6 +1,6 @@
 ({
     block: 'b-page',
-    title: 'Title of the page',
+    title: 'Галерея изображений',
     favicon: '/favicon.ico',
     head: [
         { elem: 'css', url: '_index.css', ie: false },
@@ -9,25 +9,14 @@
         { elem: 'meta', attrs: { name: 'keywords', content: '' }}
     ],
     content:[
-        {
-            block: 'header',
-            content: [
-                'header content goes here'
-            ]
-        },
-        {
-            block: 'content',
-            content: [
-                'main content'
-            ]
-        },
-        {
-            block: 'footer',
-            content: [
-                'footer content goes here'
-            ]
-        },
+        { block: 'b-arrow', mods: { direction: 'back', visible: 'yes'}},
+        { block: 'b-arrow', mods: { direction: 'forward', visible: 'yes'}},
+
+        { block: 'b-thumbnail-wrapper', mods: { visible: 'yes'}},
+
         { block: 'i-jquery', mods: { version: '1.8.3' } },
-        { elem: 'js', url: '_index.js' }
+        { elem: 'js', url: '_index.js' },
+
+        { block: 'd-source'}
     ]
 })

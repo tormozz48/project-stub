@@ -1,0 +1,19 @@
+.b-thumbnail-wrapper
+{
+	position: fixed;
+	bottom: 0;
+
+	overflow-x: auto;
+	overflow-y: none;
+	
+	padding: 5px 0;
+	
+	width: 100%; 
+
+	background-color: rgba(255, 255, 255, 0.2);
+	box-shadow: 0 0 5px #fff;
+	white-space: nowrap;
+	opacity: 0.9;
+
+	visibility: hidden;
+}
