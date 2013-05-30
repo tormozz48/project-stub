@@ -28,6 +28,8 @@ BEM.decl('d-source', {
 	MIN_LIMIT: 0,
 	MAX_LIMIT: 100,
 
+    images: [],
+
     /**
     * Метод для построения ссылки для загрузки данных с Яндекс фоток
     **/
@@ -72,7 +74,22 @@ BEM.decl('d-source', {
     * Метод для парсинга загруженных данных и заполнения модели изображений 
     **/
     _parseData : function(data) {
+        var l = data.entries.length;
 
+        console.log('-- images has been loaded --');
+        console.log('- images size : ' + l);
+
+        if( l > 0 ){
+            for( var i = 0; i < l; i++ ){
+
+                //Для каждого изображения создаем блок d-image хранящий всю информацию
+                this.images[i] = BEM.create('d-image', {
+                    id: data.entries[i].id, 
+                    title: data.entries[i].title, 
+                    sizes: data.entries[i].img
+                });
+            }            
+        }
     }
 
 }, {

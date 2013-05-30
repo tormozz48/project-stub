@@ -15,8 +15,8 @@
         { block: 'b-thumbnail-wrapper', mods: { visible: 'yes'}},
 
         { block: 'i-jquery', mods: { version: '1.8.3' } },
-        { elem: 'js', url: '_index.js' },
+        { elem: 'js', url: '_index.js' }//,
 
-        { block: 'd-source'}
+        //{ block: 'd-source'}
     ]
 })
