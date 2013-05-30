@@ -58,11 +58,20 @@ BEM.decl('d-source', {
         return url;
 	},
 
+    /**
+    * Метод для загрузки данных с Яндекс фоток по сгенерированной ссылке
+    **/
 	_loadData : function() {
-        this._createUrl();
+        var _this = this;
+        $.getJSON(this._createUrl(), function(data){
+            _this._parseData(data);
+        });
 	},
 
-    _parseData : function() {
+    /**
+    * Метод для парсинга загруженных данных и заполнения модели изображений 
+    **/
+    _parseData : function(data) {
 
     }
 
