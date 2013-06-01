@@ -21,12 +21,24 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
         }
     },
 
-    drawThumbnails: function(images) {
+    drawThumbnails: function(images, size) {
         var l = images.length;
 
         if(l > 0) {
-            for(var i = 0; i < l; i++) {
-                
+            for( var i = 0; i < l; i++ ) {
+                this.__self.append(this.domElem, BEMHTML.apply({
+                        block: 'b-thumbnail-wrapper',
+                        elem: 'thumbnail',
+                        attrs: {
+                            src: images[i].get_by_size(size).href,
+                            title: images[i].title,
+                            alt: images[i].title,
+                        },
+                        js: {
+                            data_id: images[i].id,
+                            index: i
+                        }
+                }));        
             }
         }    
     }

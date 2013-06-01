@@ -16,7 +16,11 @@
                     url: 'http://api-fotki.yandex.ru/api/top/',
                     order: 'updated',
                     limit: 50
-                }
+                },
+                thumbnail_size: 'XXS',
+                image_size: 'L',
+                switch_direction: 'left',
+                switch_duration: 300
             }
         },
         

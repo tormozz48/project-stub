@@ -1,14 +1,31 @@
-({
-    tech: 'js',
-    mustDeps: [
-        {
-            block: 'i-bem',
-            elem: 'html',
-            tech: 'bemhtml'
-        },
-        {
-            elem: 'thumbnail',
-            tech: 'bemhtml'
-        }
-    ]
-})
+([
+    {
+        tech: 'js',
+        mustDeps: [
+            {
+                block: 'i-bem',
+                elem: 'html',
+                tech: 'bemhtml'
+            },
+            {
+                block: 'b-thumbnail-wrapper',
+                tech: 'bemhtml'
+            }
+        ]
+    },
+    {
+        mustDeps: [
+            {
+                block: 'i-bem',
+                elem: 'dom'
+            }
+        ],
+        shouldDeps: [
+            {   
+                mods: {                
+                    'visible': 'yes'
+                }
+            }  
+        ]
+    }
+])
