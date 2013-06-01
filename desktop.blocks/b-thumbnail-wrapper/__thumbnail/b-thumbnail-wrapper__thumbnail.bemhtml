@@ -1,0 +1,16 @@
+block 'b-thumbnail-wrapper', elem thumbnail {
+
+    tag: 'img'
+
+    attrs: {
+        var ctx = this.ctx,
+        
+        a.src = ctx.src;
+        a.alt = a.title = ctx.title;
+        a.data_id = ctx.data_id;
+        a.data_index = ctx.index;
+
+        return a;
+    }
+
+}

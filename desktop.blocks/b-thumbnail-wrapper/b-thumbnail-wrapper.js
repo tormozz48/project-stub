@@ -19,14 +19,19 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
         		_this.delMod('visible');
         	});        	
         }
+    },
 
+    drawThumbnails: function(images) {
+        var l = images.length;
+
+        if(l > 0) {
+            for(var i = 0; i < l; i++) {
+                
+            }
+        }    
     }
 
 }, {
-
-    // live : function() {
-    //     /* ... */
-    // }
 
 });
 

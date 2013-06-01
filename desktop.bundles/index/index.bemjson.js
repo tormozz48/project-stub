@@ -9,14 +9,19 @@
         { elem: 'meta', attrs: { name: 'keywords', content: '' }}
     ],
     content:[
-        { block: 'b-arrow', mods: { direction: 'back', visible: 'yes'}},
-        { block: 'b-arrow', mods: { direction: 'forward', visible: 'yes'}},
-
-        { block: 'b-thumbnail-wrapper', mods: { visible: 'yes'}},
-
+        { 
+            block: 'b-gallery',
+            js: {
+                data_source : {
+                    url: 'http://api-fotki.yandex.ru/api/top/',
+                    order: 'updated',
+                    limit: 50
+                }
+            }
+        },
+        
         { block: 'i-jquery', mods: { version: '1.8.3' } },
-        { elem: 'js', url: '_index.js' }//,
-
-        //{ block: 'd-source'}
+        { elem: 'js', url: '_index.js' }
     ]
+    
 })

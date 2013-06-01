@@ -14,7 +14,6 @@ BEM.DOM.decl('b-arrow', {
         	this.bindToDoc('mouseenter', function(e){
         		_this.setMod('visible', 'yes');
         	});
-
         }
 
     }

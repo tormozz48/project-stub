@@ -1,0 +1,13 @@
+block b-gallery { 
+	
+	js: true,
+
+	content: [
+		{ block: 'b-arrow', mods: { direction: 'back', visible: 'yes'}},
+        { block: 'b-arrow', mods: { direction: 'forward', visible: 'yes'}},
+
+        { block: 'b-thumbnail-wrapper', mods: { visible: 'yes'}}
+
+	]
+		
+}

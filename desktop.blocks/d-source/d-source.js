@@ -5,6 +5,8 @@
 
 BEM.decl('d-source', {
 
+    images: [],
+
     onSetMod : {
 
         'js' : function() {
@@ -18,18 +20,6 @@ BEM.decl('d-source', {
 
     },
 
-    DEFAULT_URL: 'http://api-fotki.yandex.ru/api/top/',
-	DEFAULT_LIMIT: 50,
-
-	DATA_FORMAT: 'format=json',
-	CALLBACK: 'callback=?',
-
-	ORDERS: ['updated', 'rupdated', 'published', 'rpublished', 'created', 'rcreated'],
-	MIN_LIMIT: 0,
-	MAX_LIMIT: 100,
-
-    images: [],
-
     /**
     * Метод для построения ссылки для загрузки данных с Яндекс фоток
     **/
@@ -37,22 +27,22 @@ BEM.decl('d-source', {
         var url = null;
 
         //добавляем url из параметров или берем url по умолчанию
-        url = this.params.url || this.DEFAULT_URL;
+        url = this.params.url || this.__self.DEFAULT_URL;
         
         //добавляем order из параметров или берем order по умолчанию
-        url += this.params.order ? this.params.order : this.ORDERS[0];
+        url += this.params.order ? this.params.order : this.__self.ORDERS[0];
         
         url += '/';
 
         //добавляем limit из парамеров или берем по умолчанию
         // проводим дополнительные проверки на то, что limit положительный и меньше максимального лимита
-        var limit = (this.params.limit && this.params.limit > 0) ? this.params.limit : this.DEFAULT_LIMIT;
-        limit = this.params.limit <= this.MAX_LIMIT ? this.params.limit : this.MAX_LIMIT;
+        var limit = (this.params.limit && this.params.limit > 0) ? this.params.limit : this.__self.DEFAULT_LIMIT;
+        limit = this.params.limit <= this.__self.MAX_LIMIT ? this.params.limit : this.__self.MAX_LIMIT;
         
         url += '?limit=' + limit;
         
         //добавляем формат данных и callback для JSONP запроса
-        url += '&' + this.DATA_FORMAT + '&' + this.CALLBACK;
+        url += '&' + this.__self.DATA_FORMAT + '&' + this.__self.CALLBACK;
         
         console.log('-- url has been created --');
         console.log('- url : ' + url);
@@ -90,19 +80,20 @@ BEM.decl('d-source', {
                 });
             }            
         }
+
+        this.trigger('eventDataLoaded');
     }
 
 }, {
+    DEFAULT_URL: 'http://api-fotki.yandex.ru/api/top/',
+    DEFAULT_LIMIT: 50,
 
+    DATA_FORMAT: 'format=json',
+    CALLBACK: 'callback=?',
 
+    ORDERS: ['updated', 'rupdated', 'published', 'rpublished', 'created', 'rcreated'],
+    MIN_LIMIT: 0,
+    MAX_LIMIT: 100
 });
 
-//TODO подумать как сделать проброс параметров из страницы bemjson
-
-BEM.create('d-source', {
-    url: 'http://api-fotki.yandex.ru/api/top/',
-    order: 'updated',
-    limit: 50
-});
-
-})();
+})();   

@@ -17,6 +17,9 @@ BEM.DOM.decl({ block: 'b-arrow', modName: 'direction', modVal: 'forward'}, {
         		_this.delMod('visible');
         	});
 
+            this.bindTo('click', function() {
+                _this.trigger('eventForward');
+            });
         }
 
     }

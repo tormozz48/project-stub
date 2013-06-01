@@ -8,10 +8,10 @@ BEM.decl('d-image', {
     onSetMod : {
 
         'js' : function() {
-            console.log('-- image model has been created --');
-            console.log('- id : ' + this.params.id);
-            console.log('- title : ' + this.params.title);
-            console.log('- sizes : ' + this.params.sizes);
+            // console.log('-- image model has been created --');
+            // console.log('- id : ' + this.params.id);
+            // console.log('- title : ' + this.params.title);
+            // console.log('- sizes : ' + this.params.sizes);
         }
 
     },

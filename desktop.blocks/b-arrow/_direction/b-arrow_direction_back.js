@@ -17,6 +17,9 @@ BEM.DOM.decl({ block: 'b-arrow', modName: 'direction', modVal: 'back'}, {
         		_this.delMod('visible');
         	});
 
+            this.bindTo('click', function() {
+                _this.trigger('eventBack');
+            });
         }
 
     }

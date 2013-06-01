@@ -1,8 +1,8 @@
 ({
     mustDeps: [
-        { block: 'd-image' }
+        { block: 'i-bem', elem: 'dom' },
     ],
     shouldDeps: [
-        
+        { block: 'd-image' }
     ]
 })
