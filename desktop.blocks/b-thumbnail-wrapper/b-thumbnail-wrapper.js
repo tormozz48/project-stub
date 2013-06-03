@@ -41,7 +41,17 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
                         }
                 }));        
             }
-        }    
+        }
+
+        /*Устанавливаем модификатор hovered при наведении мыши на thumbnail*/
+        this.bindTo('thumbnail', 'mouseenter', function(e) {
+            this.setMod(e.data.domElem, 'hovered', 'yes');
+        });
+
+        /*Убираем модификатор hovered когда уводим мышь с thumbnail-а*/
+        this.bindTo('thumbnail', 'mouseleave', function(e) {
+            this.delMod(e.data.domElem, 'hovered');
+        });    
     }
 
 }, {
