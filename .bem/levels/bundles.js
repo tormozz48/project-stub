@@ -23,6 +23,10 @@ exports.getTechs = function() {
         'ie8.css'       : 'ie8.css',
         'ie9.css'       : 'ie9.css',
 
+        'i18n'          : pjoin(BEMBL_TECHS, 'i18n.js'),
+        'i18n.js'       : pjoin(BEMBL_TECHS, 'i18n.js.js'),
+        'i18n.html'     : pjoin(BEMBL_TECHS, 'i18n.html.js'),
+
         'bemhtml'       : pjoin(BEMBL_TECHS, 'bemhtml.js'),
         'html'          : pjoin(BEMBL_TECHS, 'html.js')
     };

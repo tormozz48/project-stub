@@ -29,13 +29,14 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
                 this.__self.append(this.domElem, BEMHTML.apply({
                         block: 'b-thumbnail-wrapper',
                         elem: 'thumbnail',
+                        // tag: 'img',
                         attrs: {
-                            src: images[i].get_by_size(size).href,
-                            title: images[i].title,
-                            alt: images[i].title,
+                            src: images[i].getBySize(size).href,
+                            title: images[i].params.title,
+                            alt: images[i].params.title,
                         },
                         js: {
-                            data_id: images[i].id,
+                            data_id: images[i].params.id,
                             index: i
                         }
                 }));        
