@@ -11,7 +11,6 @@
                 mods: { visible: 'yes' }             
             },
             {
-                // elem: 'thumbnail',
                 elem: 'thumbnail', mods: { hovered: 'yes' }
             }  
         ]
