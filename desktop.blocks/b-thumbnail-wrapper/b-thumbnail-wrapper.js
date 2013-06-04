@@ -33,8 +33,6 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
                             src: images[i].getBySize(size).href,
                             title: images[i].params.title,
                             alt: images[i].params.title,
-                        },
-                        js: {
                             data_id: images[i].params.id,
                             index: i
                         }
