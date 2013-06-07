@@ -13,10 +13,10 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
 
         	this
                 .bindTo('mouseenter', function(e){
-                    _this.setMod('visible', 'yes');
+                    _this._show();    
     	        })
                 .bindTo('mouseleave', function(e){
-                    _this.delMod('visible');
+                    _this._hide();
     	        })
                 .bindToDoc('mousewheel', function(e) {
                     _this._onScroll(e);
@@ -28,6 +28,17 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
                     _this._onScroll(e);
                 });
             }         	
+        },
+
+        'visible' : {
+
+            'yes' : function() {
+                //TODO something
+            },
+
+            '' : function() {
+                //TODO something
+            }
         }
     },
 
@@ -65,6 +76,20 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
             .bindTo('thumbnail', 'click', function(e) {
                 this._onThumbnailClick(e);
             });    
+    },
+
+    /**
+    *  Показываем контейнер с миниатюрами
+    */
+    _show: function() {
+        this.hasMod('visible') || this.setMod('visible', 'yes');
+    },
+
+    /**
+    *  Прячем контейнер с миниатюрами
+    */
+    _hide:  function() {
+        this.hasMod('visible') && this.delMod('visible');
     },
 
     /*

@@ -18,7 +18,7 @@ BEM.DOM.decl({ block: 'b-arrow', modName: 'direction', modVal: 'back'}, {
         	});
 
             this.bindTo('click', function() {
-                _this.trigger('eventBack');
+                _this.trigger('click');
             });
         }
 

@@ -5,7 +5,8 @@
 
 BEM.decl('d-source', {
 
-    images: [],
+    _images: [],
+    _currentIndex: null,
 
     onSetMod : {
 
@@ -73,7 +74,7 @@ BEM.decl('d-source', {
             for( var i = 0; i < l; i++ ){
 
                 //Для каждого изображения создаем блок d-image хранящий всю информацию
-                this.images[i] = BEM.create('d-image', {
+                this._images[i] = BEM.create('d-image', {
                     id: data.entries[i].id, 
                     title: data.entries[i].title, 
                     sizes: data.entries[i].img
@@ -82,6 +83,23 @@ BEM.decl('d-source', {
         }
 
         this.trigger('eventDataLoaded');
+    },
+ 
+    isFirst: function(){
+        return this.getCurrentIndex() == 0;
+    },
+
+    isLast: function(){
+        var l = this.getImages() ? this.getImages().length : 0;    
+        return this.getCurrentIndex() == l - 1;           
+    },
+
+    getImages: function() {
+        return this._images;
+    },
+
+    getCurrentIndex: function() {
+        return this._current_index;
     }
 
 }, {
