@@ -28,33 +28,32 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
                     _this._onScroll(e);
                 });
             }         	
-        },
-
-        'visible' : {
-
-            'yes' : function() {
-                //TODO something
-            },
-
-            '' : function() {
-                //TODO something
-            }
         }
     },
 
+    /**
+     * Метод для создания миниатюр, добавления их в контейнер
+     * и подписки на события наведения 
+     * и отведения курсора мыши и нажатия
+     * @param  {Array} images - коллекция данных об изображениях
+     * @param  {String} size - размер для миниатюры изобажения
+     */
     drawThumbnails: function(images, size) {
         var l = images.length;
 
         if(l > 0) {
+            var img = null;
+
             for( var i = 0; i < l; i++ ) {
+                img = images[i];
                 this.__self.append(this.domElem, BEMHTML.apply({
                         block: 'b-thumbnail-wrapper',
                         elem: 'thumbnail',
                         attrs: {
-                            src: images[i].getBySize(size).href,
-                            title: images[i].params.title,
-                            alt: images[i].params.title,
-                            data_id: images[i].params.id,
+                            src: img.getBySize(size).href,
+                            title: img.params.title,
+                            alt: img.params.title,
+                            data_id: img.params.id,
                             index: i
                         }
                 }));        
@@ -62,6 +61,10 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
         }
 
         var _this = this;
+
+        this.findElem('thumbnail').load(function() {
+            _this.setMod($(this), 'loaded', 'yes');
+        });
 
         /*Устанавливаем модификатор hovered при наведении мыши на thumbnail*/
         /*Убираем модификатор hovered когда уводим мышь с thumbnail-а*/
@@ -79,23 +82,26 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
     },
 
     /**
-    *  Показываем контейнер с миниатюрами
-    */
+     * Показываем контейнер с миниатюрами
+     * @return {Object}  экземпляр блока b-thumbnail-wrapper
+     */
     _show: function() {
         this.hasMod('visible') || this.setMod('visible', 'yes');
     },
 
     /**
-    *  Прячем контейнер с миниатюрами
-    */
+     * Прячем контейнер с миниатюрами
+     * @return {Object}  экземпляр блока b-thumbnail-wrapper
+     */
     _hide:  function() {
-        this.hasMod('visible') && this.delMod('visible');
+        return this.delMod('visible');
     },
 
-    /*
-    *  Обрабатываем событие скроллирования колесом мыши
-    *  и прокручиваем галерею миниатюр вперед или назад
-    */
+    /**
+     * Обрабатываем событие скроллирования колесом мыши
+     * и прокручиваем галерею миниатюр вперед или назад
+     * @param  {Object} e объект события
+     */
     _onScroll: function(e) {
         var delta = 0;
 
