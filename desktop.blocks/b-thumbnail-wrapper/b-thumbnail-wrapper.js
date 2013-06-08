@@ -32,56 +32,6 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
     },
 
     /**
-     * Метод для создания миниатюр, добавления их в контейнер
-     * и подписки на события наведения 
-     * и отведения курсора мыши и нажатия
-     * @param  {Array} images - коллекция данных об изображениях
-     * @param  {String} size - размер для миниатюры изобажения
-     */
-    drawThumbnails: function(images, size) {
-        var l = images.length;
-
-        if(l > 0) {
-            var img = null;
-
-            for( var i = 0; i < l; i++ ) {
-                img = images[i];
-                this.__self.append(this.domElem, BEMHTML.apply({
-                        block: 'b-thumbnail-wrapper',
-                        elem: 'thumbnail',
-                        attrs: {
-                            src: img.getBySize(size).href,
-                            title: img.params.title,
-                            alt: img.params.title,
-                            data_id: img.params.id,
-                            index: i
-                        }
-                }));        
-            }
-        }
-
-        var _this = this;
-
-        this.findElem('thumbnail').load(function() {
-            _this.setMod($(this), 'loaded', 'yes');
-        });
-
-        /*Устанавливаем модификатор hovered при наведении мыши на thumbnail*/
-        /*Убираем модификатор hovered когда уводим мышь с thumbnail-а*/
-        /*Добавляем обработку клика на миниатюре изображения*/
-        this
-            .bindTo('thumbnail', 'mouseenter', function(e) {
-                _this.setMod(e.data.domElem, 'hovered', 'yes');
-            })
-            .bindTo('thumbnail', 'mouseleave', function(e) {
-                _this.delMod(e.data.domElem, 'hovered');
-            })
-            .bindTo('thumbnail', 'click', function(e) {
-                this._onThumbnailClick(e);
-            });    
-    },
-
-    /**
      * Показываем контейнер с миниатюрами
      * @return {Object}  экземпляр блока b-thumbnail-wrapper
      */
@@ -143,6 +93,56 @@ BEM.DOM.decl('b-thumbnail-wrapper', {
 
         /* триггерим BEM событие eventThumbnailClick */
         this.trigger('eventThumbnailClick', { index: index, id: data_id });
+    },
+
+    /**
+     * Метод для создания миниатюр, добавления их в контейнер
+     * и подписки на события наведения 
+     * и отведения курсора мыши и нажатия
+     * @param  {Array} images - коллекция данных об изображениях
+     * @param  {String} size - размер для миниатюры изобажения
+     */
+    drawThumbnails: function(images, size) {
+        var l = images.length;
+
+        if(l > 0) {
+            var img = null;
+
+            for( var i = 0; i < l; i++ ) {
+                img = images[i];
+                this.__self.append(this.domElem, BEMHTML.apply({
+                        block: 'b-thumbnail-wrapper',
+                        elem: 'thumbnail',
+                        attrs: {
+                            src: img.getBySize(size).href,
+                            title: img.params.title,
+                            alt: img.params.title,
+                            data_id: img.params.id,
+                            index: i
+                        }
+                }));        
+            }
+        }
+
+        var _this = this;
+
+        this.findElem('thumbnail').load(function() {
+            _this.setMod($(this), 'loaded', 'yes');
+        });
+
+        /*Устанавливаем модификатор hovered при наведении мыши на thumbnail*/
+        /*Убираем модификатор hovered когда уводим мышь с thumbnail-а*/
+        /*Добавляем обработку клика на миниатюре изображения*/
+        this
+            .bindTo('thumbnail', 'mouseenter', function(e) {
+                _this.setMod(e.data.domElem, 'hovered', 'yes');
+            })
+            .bindTo('thumbnail', 'mouseleave', function(e) {
+                _this.delMod(e.data.domElem, 'hovered');
+            })
+            .bindTo('thumbnail', 'click', function(e) {
+                this._onThumbnailClick(e);
+            });    
     }
 
 }, {

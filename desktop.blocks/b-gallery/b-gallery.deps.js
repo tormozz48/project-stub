@@ -5,6 +5,7 @@
     ],
     shouldDeps: [
       	{ block: 'b-arrow' },
-      	{ block: 'b-thumbnail-wrapper' },  
+      	{ block: 'b-thumbnail-wrapper' },
+      	{ block: 'b-image' }  
     ]
 })
