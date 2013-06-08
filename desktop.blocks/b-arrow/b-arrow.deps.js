@@ -6,7 +6,8 @@
       	{
             mods: {                
                 'direction': ['forward','back'],
-                'visible': 'yes'
+                'visible': 'yes',
+                'disable': 'yes'
             }
         }  
     ]
