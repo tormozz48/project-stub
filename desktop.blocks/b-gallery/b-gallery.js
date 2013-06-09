@@ -119,12 +119,7 @@ BEM.DOM.decl('b-gallery', {
 
     AVAILABLE_SIZES: ['XXXS', 'XXS', 'XS', 'S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
 
-    SWITCH_DIRECTIONS: ['left', 'bottom', 'right', 'top'], 
-
-    DEFAULT_SWITCH_DURATION: 300,
-
-    THUMBNAILS_WRAPPER_HEIGHT_ADDITION: 10
-
+    DEFAULT_SWITCH_DURATION: 300
 });
 
 })();

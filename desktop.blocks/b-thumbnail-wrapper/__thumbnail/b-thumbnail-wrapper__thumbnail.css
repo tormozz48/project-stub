@@ -1,6 +1,6 @@
 .b-thumbnail-wrapper__thumbnail
 {
-	display: none;
+	visibility: hidden;
 	margin-right: 5px;
 	margin-left: 5px;
 

@@ -1,4 +1,4 @@
 .b-thumbnail-wrapper__thumbnail_loaded_yes
 {
-	display: inline;
+	visibility: visible;
 }

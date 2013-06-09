@@ -22,8 +22,9 @@ BEM.decl('d-source', {
     },
 
     /**
-    * Метод для построения ссылки для загрузки данных с Яндекс фоток
-    **/
+     * Метод для построения ссылки для загрузки данных с Яндекс фоток
+     * @return {String} - url для загрузки файлов
+     */
 	_createUrl : function() {
         var url = null;
 
@@ -52,8 +53,8 @@ BEM.decl('d-source', {
 	},
 
     /**
-    * Метод для загрузки данных с Яндекс фоток по сгенерированной ссылке
-    **/
+     * Метод для загрузки данных с Яндекс фоток по сгенерированной ссылке
+     */
 	_loadData : function() {
         var _this = this;
         $.getJSON(this._createUrl(), function(data){
@@ -62,8 +63,9 @@ BEM.decl('d-source', {
 	},
 
     /**
-    * Метод для парсинга загруженных данных и заполнения модели изображений 
-    **/
+     * Метод для парсинга загруженных данных и заполнения модели изображений
+     * @param  {Object} data - данные от сервера с описанием коллекции изображений
+     */
     _parseData : function(data) {
         var l = data.entries.length;
 
@@ -82,24 +84,46 @@ BEM.decl('d-source', {
             }            
         }
 
+        //триггерим событие для индикации окончания загрузки данных
         this.trigger('eventDataLoaded');
     },
- 
+    
+    /**
+     * Проверка условия, что текущее изображение является первым в галерее
+     * @return {Boolean} true || false
+     */
     isFirst: function(){
         return this.getCurrentIndex() == 0;
     },
 
+    /**
+     * Проверка условия, что текущее изображение является последним в галерее
+     * @return {Boolean} true || false
+     */
     isLast: function(){
         var l = this.getImages() ? this.getImages().length : 0;    
         return this.getCurrentIndex() == l - 1;           
     },
 
+    /**
+     * Метод для возврата коллекции данных об изображениях
+     * @return {Array}
+     */
     getImages: function() {
         return this._images;
     },
 
+    /**
+     * Метод для возврата текущего индекса в галерее
+     * @return {Number} индекс текущего изображения
+     */
     getCurrentIndex: function() {
         return this._current_index;
+    },
+
+    loadIndex: function() {
+        //TODO load index from cookie
+        return 0;
     }
 
 }, {
