@@ -121,6 +121,14 @@ BEM.decl('d-source', {
         return this._current_index;
     },
 
+    /**
+     * Метод для установки текущего индекса в галерее
+     * @param  {Number} index индекс, который мы выставляем в галерее
+     */
+    setCurrentIndex: function(index) {
+        this._current_index = index;
+    },
+
     loadIndex: function() {
         //TODO load index from cookie
         return 0;

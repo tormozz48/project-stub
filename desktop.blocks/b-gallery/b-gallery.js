@@ -48,9 +48,6 @@ BEM.DOM.decl('b-gallery', {
         // берем размер для полного изображения из конфига или устанавливаем по умолчанию
         this.params.image_size = this.params.image_size || this.__self.DEFAULT_IMAGE_SIZE;
         
-        // берем направление перемещения изображения из конфигурации или устанавливаем по умолчанию
-        this.params.switch_direction = this.params.switch_direction || this.__self.SWITCH_DIRECTIONS[0];
-        
         // берем время для анимации переключения или устанавливаем по умолчанию
         this.params.switch_duration = this.params.switch_duration || this.__self.DEFAULT_SWITCH_DURATION;
 
@@ -66,7 +63,11 @@ BEM.DOM.decl('b-gallery', {
     _onDataLoaded: function() {
     	console.log('_onDataLoaded');
 
-        this._thumbnailWrapper.drawThumbnails(this._dataSource.getImages(), this.params.thumbnail_size);
+        this._thumbnailWrapper.drawThumbnails(
+            this._dataSource.getImages(), this.params.thumbnail_size
+        );
+
+        this._initFirstImage();
 
         return this;
     },
@@ -110,6 +111,57 @@ BEM.DOM.decl('b-gallery', {
      */
     _getDataSource: function() {
         return this._dataSource;
+    },
+
+    /**
+     * [ description]
+     * @return {[type]} [description]
+     */
+    _initFirstImage: function() {
+        console.log('_initFirstImage');
+
+        var index = this._getDataSource().loadIndex();
+        var img = this._getDataSource().getImages()[index];
+
+        this.__self.append(this.domElem, BEMHTML.apply({
+            block: 'b-image',
+            attrs: {
+                src: img.getBySize(this.params.image_size).href,
+                title: img.params.title,
+                alt: img.params.title,
+                data_id: img.params.id,
+                index: index
+            },
+            js: {
+                size: img.getBySize(this.params.image_size)
+            }
+        }));
+
+        this.findBlockInside('b-image').on('eventImageLoaded', function(arguments) {
+            console.log('eventImageLoaded');
+
+            arguments.block
+                .resize() //Маштабируем изображение под размеры окна браузера
+                .align() //Выравниваем изображение по горизонтали и вертикали
+                .setMod('visible', 'yes'); //делаем изображение видимым
+
+            this._getDataSource().setCurrentIndex(index);
+            this._toggelArrows();    
+                
+        }, this);
+    },
+
+    /**
+     * Метод для блокирования/разблокирования навигационных стрелок
+     * Если мы находимся на первой картине в гелерее, то блокируется стрелка назад
+     * Если мы находимся на последней картине в галерее, то блокируется стрелка вперед
+     * @return {Object} экземпляр блока b-gallery
+     */
+    _toggelArrows: function() {
+        this._getDataSource().isFirst() ? this._arrowBack.disable() : this._arrowBack.enable();
+        this._getDataSource().isLast() ? this._arrowForward.disable() : this._arrowForward.enable();
+
+        return this;
     }
 
 }, {

@@ -18,7 +18,7 @@
                     limit: 50
                 },
                 thumbnail_size: 'XXS',
-                image_size: 'L',
+                image_size: 'XL',
                 switch_direction: 'left',
                 switch_duration: 300
             }

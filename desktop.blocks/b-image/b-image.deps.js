@@ -9,7 +9,6 @@
     	{
             mods: {                
                 'active': 'yes',
-                'loaded': 'yes',
                 'visible': 'yes'
             }
         }

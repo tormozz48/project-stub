@@ -20,13 +20,13 @@ BEM.decl('d-image', {
     * Возвращает изображение по его размеру
     **/
     getBySize: function(size) {
-		return  this.params.sizes[size] || this.getLargestImage();
+		return  this.params.sizes[size] || this._getLargestImage();
 	},
 
 	/**
 	* Возвращает самый большой из существующих вариантов изображения
 	**/
-	getLargestImage: function() {
+	_getLargestImage: function() {
 		
 		var largest_img = null;
 
