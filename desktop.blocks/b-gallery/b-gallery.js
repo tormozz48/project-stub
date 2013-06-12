@@ -21,18 +21,42 @@ BEM.DOM.decl('b-gallery', {
         		this._onDataLoaded();
         	}, this);
 
-            //Подписываем блок стрелки возврата на предыдущее изображение на 
-            //событие eventBack которое этот блок триггерит при нажатии на него
-            this.bindTo(this._arrowBack, 'click', function() {
-                this._switchToPreviousImage();
-            }, this);
-
-            //Подписываем блок стрелки перехода на следующее изображение на 
-            //событие eventForward которое этот блок триггерит при нажатии на него    
-            this.bindTo(this._arrowForward, 'click', function() {
-                this._switchToNextImage();
-            }, this);       
+            this._bindEventsToArrows();                   
         }
+    },
+
+    /**
+     * Подписываем элементы arrow на события
+     * @return {Object} экземпляр класса b-gallery
+     */
+    _bindEventsToArrows: function(){
+        var _this = this;    
+
+        //когда курсор мыши входит в область окна браузера показываем навигационные стрелки
+        this.bindToDoc('mouseenter', function() {
+            _this.setMod(_this._arrowBack, 'visible', 'yes');
+            _this.setMod(_this._arrowForward, 'visible', 'yes');
+        });
+
+        //когда курсор мыши уходит из области окна браузера скрываем навигационные стрелки
+        this.bindToDoc('mouseleave', function() {
+            _this.delMod(_this._arrowBack, 'visible');
+            _this.delMod(_this._arrowForward, 'visible');
+        });
+
+        //Подписываем блок стрелки возврата на предыдущее изображение на 
+        //событие eventBack которое этот блок триггерит при нажатии на него
+        this.bindTo(this._arrowBack, 'click', function() {
+            this._switchToPreviousImage();
+        }, this);
+
+        //Подписываем блок стрелки перехода на следующее изображение на 
+        //событие eventForward которое этот блок триггерит при нажатии на него    
+        this.bindTo(this._arrowForward, 'click', function() {
+            this._switchToNextImage();
+        }, this);
+
+        return this;
     },
 
     /**
@@ -158,10 +182,10 @@ BEM.DOM.decl('b-gallery', {
      * @return {Object} экземпляр блока b-gallery
      */
     _toggelArrows: function() {
-        // this._getDataSource().isFirst() ? this._arrowBack.disable() : this._arrowBack.enable();
-        // this._getDataSource().isLast() ? this._arrowForward.disable() : this._arrowForward.enable();
-
-        return this;
+        return this
+                .toggleMod(this._arrowBack, 'disable', 'yes', this._getDataSource().isFirst())
+                .toggleMod(this._arrowForward, 'disable', 'yes', this._getDataSource().isLast());
+         
     }
 
 }, {
