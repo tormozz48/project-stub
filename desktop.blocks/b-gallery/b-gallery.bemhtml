@@ -3,11 +3,10 @@ block b-gallery {
 	js: true,
 
 	content: [
-		{ elem: 'arrow', mods: { direction: 'back', visible: 'yes'}},
-        { elem: 'arrow', mods: { direction: 'forward', visible: 'yes'}},
-
-        { block: 'b-loader'},
-        { block: 'b-thumbnail-wrapper'}
+		{ elem: 'arrow', mods: { direction: 'back', visible: 'yes' }},
+        { elem: 'arrow', mods: { direction: 'forward', visible: 'yes' }},
+        { elem: 'thumbnails' },
+        { block: 'b-loader' }
 
 	]
 		

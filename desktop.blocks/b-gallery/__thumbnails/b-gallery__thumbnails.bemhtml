@@ -1,0 +1,4 @@
+block b-gallery, elem thumbnails {
+
+	tag: 'div'
+}

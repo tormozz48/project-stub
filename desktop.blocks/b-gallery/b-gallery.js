@@ -12,11 +12,9 @@ BEM.DOM.decl('b-gallery', {
 
          	this._dataSource = BEM.create('d-source', this.params.data_source);	
             
-            this._thumbnailWrapper = this.findBlockInside('b-thumbnail-wrapper');
-            this._loader = this.findBlockInside('b-loader');
-
             this._arrowBack = this.elem('arrow', 'direction','back');
             this._arrowForward = this.elem('arrow', 'direction', 'forward');
+            this._loader = this.findBlockInside('b-loader');
 
             //Подписываем блок dataSource на событие eventDataLoaded окончания загрузки данных
         	this._dataSource.on('eventDataLoaded', function(){
@@ -48,14 +46,12 @@ BEM.DOM.decl('b-gallery', {
             _this.delMod(_this._arrowForward, 'visible');
         });
 
-        //Подписываем блок стрелки возврата на предыдущее изображение на 
-        //событие eventBack которое этот блок триггерит при нажатии на него
+        //Подписываем элемент стрелки возврата на предыдущее изображение на событие click
         this.bindTo(this._arrowBack, 'click', function() {
             this._switchToPreviousImage();
         }, this);
 
-        //Подписываем блок стрелки перехода на следующее изображение на 
-        //событие eventForward которое этот блок триггерит при нажатии на него    
+        //Подписываем элемент стрелки перехода на следующее изображение на событие click    
         this.bindTo(this._arrowForward, 'click', function() {
             this._switchToNextImage();
         }, this);
@@ -91,9 +87,7 @@ BEM.DOM.decl('b-gallery', {
     _onDataLoaded: function() {
     	console.log('_onDataLoaded');
 
-        this._thumbnailWrapper.drawThumbnails(
-            this._dataSource.getImages(), this.params.thumbnail_size
-        );
+        this._drawThumbnails();
 
         this._initFirstImage();
 
@@ -134,14 +128,6 @@ BEM.DOM.decl('b-gallery', {
     },
 
     /**
-     * Возвращает объект dataSource для галереи
-     * @return {Object} объект dataSource
-     */
-    _getDataSource: function() {
-        return this._dataSource;
-    },
-
-    /**
      * [ description]
      * @return {[type]} [description]
      */
@@ -160,6 +146,7 @@ BEM.DOM.decl('b-gallery', {
                 data_id: img.params.id,
                 index: index
             },
+            mods: { alignable: 'yes', resizable: 'yes' },
             js: {
                 size: img.getBySize(this.params.image_size)
             }
@@ -196,6 +183,14 @@ BEM.DOM.decl('b-gallery', {
                 .toggleMod(this._arrowBack, 'disable', 'yes', this._getDataSource().isFirst())
                 .toggleMod(this._arrowForward, 'disable', 'yes', this._getDataSource().isLast());
          
+    },
+
+    /**
+     * Возвращает объект dataSource для галереи
+     * @return {Object} объект dataSource
+     */
+    _getDataSource: function() {
+        return this._dataSource;
     }
 
 }, {

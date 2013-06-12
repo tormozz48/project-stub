@@ -12,7 +12,18 @@
                 'disable': 'yes'
           }
       	},
-      	{ block: 'b-thumbnail-wrapper' },
+      	{ 
+          elem: 'thumbnails', 
+          mods: {'visible': 'yes'} 
+        },
+        {
+          elem: 'thumbnail', 
+          mods: {
+              'hovered': 'yes', 
+              'active':  'yes',
+              'loaded': 'yes'
+          }    
+        }, 
       	{ block: 'b-image' },
         { block: 'b-loader' }  
     ]

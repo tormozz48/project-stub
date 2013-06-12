@@ -8,24 +8,24 @@ BEM.decl('d-image', {
     onSetMod : {
 
         'js' : function() {
-            // console.log('-- image model has been created --');
-            // console.log('- id : ' + this.params.id);
-            // console.log('- title : ' + this.params.title);
-            // console.log('- sizes : ' + this.params.sizes);
+            //TODO nothing
         }
 
     },
 
     /**
-    * Возвращает изображение по его размеру
-    **/
+     * Возвращает изображение по его размеру
+     * @param  {String} size - строковый ключ для указания размера изображения
+     * @return {Object} объект для хранения параметров размера изображения
+     */
     getBySize: function(size) {
 		return  this.params.sizes[size] || this._getLargestImage();
 	},
 
 	/**
-	* Возвращает самый большой из существующих вариантов изображения
-	**/
+	 * Возвращает самый большой из существующих вариантов изображения
+	 * @return {Object} объект для хранения параметров размера изображения
+	 */
 	_getLargestImage: function() {
 		
 		var largest_img = null;

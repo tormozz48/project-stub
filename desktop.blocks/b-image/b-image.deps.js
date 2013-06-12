@@ -9,7 +9,9 @@
     	{
             mods: {                
                 'active': 'yes',
-                'visible': 'yes'
+                'visible': 'yes',
+                'alignable': 'yes',
+                'resizable': 'yes'
             }
         }
     ]
