@@ -1,0 +1,13 @@
+.b-loader
+{
+	display: none;
+	
+	position: fixed;
+
+	z-index: 100;
+
+	width: 31px;
+	height: 31px;
+
+	background: url(b-loader.gif) no-repeat;
+}

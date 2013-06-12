@@ -6,6 +6,7 @@ block b-gallery {
 		{ elem: 'arrow', mods: { direction: 'back', visible: 'yes'}},
         { elem: 'arrow', mods: { direction: 'forward', visible: 'yes'}},
 
+        { block: 'b-loader'},
         { block: 'b-thumbnail-wrapper'}
 
 	]

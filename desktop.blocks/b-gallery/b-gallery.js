@@ -13,6 +13,8 @@ BEM.DOM.decl('b-gallery', {
          	this._dataSource = BEM.create('d-source', this.params.data_source);	
             
             this._thumbnailWrapper = this.findBlockInside('b-thumbnail-wrapper');
+            this._loader = this.findBlockInside('b-loader');
+
             this._arrowBack = this.elem('arrow', 'direction','back');
             this._arrowForward = this.elem('arrow', 'direction', 'forward');
 
@@ -21,7 +23,9 @@ BEM.DOM.decl('b-gallery', {
         		this._onDataLoaded();
         	}, this);
 
-            this._bindEventsToArrows();                   
+            this._bindEventsToArrows();
+
+            this._loader.show();                   
         }
     },
 
@@ -170,7 +174,9 @@ BEM.DOM.decl('b-gallery', {
                 .setMod('visible', 'yes'); //делаем изображение видимым
 
             this._getDataSource().setCurrentIndex(index);
-            this._toggelArrows();    
+            this._toggelArrows();
+
+            this._loader.hide();    
                 
         }, this);
     },

@@ -13,6 +13,7 @@
           }
       	},
       	{ block: 'b-thumbnail-wrapper' },
-      	{ block: 'b-image' }  
+      	{ block: 'b-image' },
+        { block: 'b-loader' }  
     ]
 })
