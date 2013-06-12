@@ -4,7 +4,14 @@
         { block: 'd-source' }
     ],
     shouldDeps: [
-      	{ block: 'b-arrow' },
+      	{ 
+      		elem: 'arrow',
+      		mods: {                
+                'direction': ['forward','back'],
+                'visible': 'yes',
+                'disable': 'yes'
+          }
+      	},
       	{ block: 'b-thumbnail-wrapper' },
       	{ block: 'b-image' }  
     ]

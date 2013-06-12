@@ -1,0 +1,6 @@
+block b-gallery, elem arrow {
+
+    tag: 'div'
+
+}
+ 

@@ -13,8 +13,8 @@ BEM.DOM.decl('b-gallery', {
          	this._dataSource = BEM.create('d-source', this.params.data_source);	
             
             this._thumbnailWrapper = this.findBlockInside('b-thumbnail-wrapper');
-            this._arrowBack = this.findBlockInside({ block: 'b-arrow', modName: 'direction', modVal: 'back' });
-            this._arrowForward = this.findBlockInside({ block: 'b-arrow', modName: 'direction', modVal: 'forward' });
+            this._arrowBack = this.elem('arrow', 'direction','back');
+            this._arrowForward = this.elem('arrow', 'direction', 'forward');
 
             //Подписываем блок dataSource на событие eventDataLoaded окончания загрузки данных
         	this._dataSource.on('eventDataLoaded', function(){
@@ -23,13 +23,13 @@ BEM.DOM.decl('b-gallery', {
 
             //Подписываем блок стрелки возврата на предыдущее изображение на 
             //событие eventBack которое этот блок триггерит при нажатии на него
-            this._arrowBack.on('click', function() {
+            this.bindTo(this._arrowBack, 'click', function() {
                 this._switchToPreviousImage();
             }, this);
 
             //Подписываем блок стрелки перехода на следующее изображение на 
             //событие eventForward которое этот блок триггерит при нажатии на него    
-            this._arrowForward.on('click', function() {
+            this.bindTo(this._arrowForward, 'click', function() {
                 this._switchToNextImage();
             }, this);       
         }
@@ -158,8 +158,8 @@ BEM.DOM.decl('b-gallery', {
      * @return {Object} экземпляр блока b-gallery
      */
     _toggelArrows: function() {
-        this._getDataSource().isFirst() ? this._arrowBack.disable() : this._arrowBack.enable();
-        this._getDataSource().isLast() ? this._arrowForward.disable() : this._arrowForward.enable();
+        // this._getDataSource().isFirst() ? this._arrowBack.disable() : this._arrowBack.enable();
+        // this._getDataSource().isLast() ? this._arrowForward.disable() : this._arrowForward.enable();
 
         return this;
     }
