@@ -173,10 +173,14 @@ BEM.DOM.decl('b-gallery', {
                 .align() //Выравниваем изображение по горизонтали и вертикали
                 .setMod('visible', 'yes'); //делаем изображение видимым
 
+            //Устанавливаем текущий индекс в модели данных    
             this._getDataSource().setCurrentIndex(index);
-            this._toggelArrows();
-
-            this._loader.hide();    
+            
+            //переключаем состояние навигационных стрелок
+            //прячем индикатор загрузки
+            this
+                ._toggelArrows()
+                ._loader.hide();    
                 
         }, this);
     },
