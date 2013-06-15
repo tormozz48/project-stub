@@ -11,6 +11,7 @@ BEM.decl('d-source', {
     onSetMod : {
 
         'js' : function() {
+            this.setCurrentIndex(-1);
             this._loadData();
         }
 

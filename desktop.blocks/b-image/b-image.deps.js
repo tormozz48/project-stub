@@ -8,10 +8,7 @@
     shouldDeps: [
     	{
             mods: {                
-                'active': 'yes',
-                'visible': 'yes',
-                'alignable': 'yes',
-                'resizable': 'yes'
+                'visible': 'yes'
             }
         }
     ]

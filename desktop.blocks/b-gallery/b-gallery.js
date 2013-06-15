@@ -17,13 +17,14 @@ BEM.DOM.decl('b-gallery', {
             this._loader = this.findBlockInside('b-loader');
 
             //Подписываем блок dataSource на событие eventDataLoaded окончания загрузки данных
-        	this._dataSource.on('eventDataLoaded', function(){
-        		this._onDataLoaded();
+        	this._getDataSource().on('eventDataLoaded', function(){
+        		this._drawThumbnails();
+                this._switchToImageWithIndex(this._getDataSource().loadIndex());
         	}, this);
 
-            this._bindEventsToArrows();
-
-            this._loader.show();                   
+            this
+                ._bindEventsToArrows()
+                ._loader.show();                   
         }
     },
 
@@ -35,28 +36,24 @@ BEM.DOM.decl('b-gallery', {
         var _this = this;    
 
         //когда курсор мыши входит в область окна браузера показываем навигационные стрелки
-        this.bindToDoc('mouseenter', function() {
-            _this.setMod(_this._arrowBack, 'visible', 'yes');
-            _this.setMod(_this._arrowForward, 'visible', 'yes');
-        });
-
         //когда курсор мыши уходит из области окна браузера скрываем навигационные стрелки
-        this.bindToDoc('mouseleave', function() {
-            _this.delMod(_this._arrowBack, 'visible');
-            _this.delMod(_this._arrowForward, 'visible');
-        });
-
         //Подписываем элемент стрелки возврата на предыдущее изображение на событие click
-        this.bindTo(this._arrowBack, 'click', function() {
-            this._switchToPreviousImage();
-        }, this);
-
-        //Подписываем элемент стрелки перехода на следующее изображение на событие click    
-        this.bindTo(this._arrowForward, 'click', function() {
-            this._switchToNextImage();
-        }, this);
-
-        return this;
+        //Подписываем элемент стрелки перехода на следующее изображение на событие click
+        return this
+            .bindToDoc('mouseenter', function() {
+                _this.setMod(_this._arrowBack, 'visible', 'yes');
+                _this.setMod(_this._arrowForward, 'visible', 'yes');
+            })
+            .bindToDoc('mouseleave', function() {
+                _this.delMod(_this._arrowBack, 'visible');
+                _this.delMod(_this._arrowForward, 'visible');
+            })
+            .bindTo(this._arrowBack, 'click', function() {
+                _this._switchToPreviousImage();
+            })
+            .bindTo(this._arrowForward, 'click', function() {
+                _this._switchToNextImage();
+            });
     },
 
     /**
@@ -77,29 +74,13 @@ BEM.DOM.decl('b-gallery', {
 
         return this;
     },
-    
-    /**
-     * Колбэк индиации загрузки данных
-     * в данном методе: 
-     * - отрисовывается контейнер с миниатюрами 
-     * @return {Object} экземпляр блока b-gallery
-     */
-    _onDataLoaded: function() {
-    	console.log('_onDataLoaded');
-
-        this._drawThumbnails();
-
-        this._initFirstImage();
-
-        return this;
-    },
 
     /**
      * Метод для переключения на предыдущее изображение
      * @return {Object} экземпляр блока b-gallery
      */
     _switchToPreviousImage: function() {
-        console.log('_switchToPreviousImage');
+
         this._getDataSource().isFirst() || 
             this._switchToImageWithIndex(this._getDataSource().getCurrentIndex() - 1);
 
@@ -111,7 +92,7 @@ BEM.DOM.decl('b-gallery', {
      * @return {Object} экземпляр блока b-gallery
      */
     _switchToNextImage: function() {
-        console.log('_switchToNextImage');
+
         this._getDataSource().isLast() || 
             this._switchToImageWithIndex(this._getDataSource().getCurrentIndex() + 1);
 
@@ -124,52 +105,117 @@ BEM.DOM.decl('b-gallery', {
      * @return {type}
      */
     _switchToImageWithIndex: function(index) {
-        console.log('_switchToImageWithIndex : ' + index);
+
+        if(this.isInSwitchState){
+            return;
+        }
+
+        this.isInSwitchState = true;
+        
+        var images = this._getDataSource().getImages();
+
+        var imageBlock = this.findBlockInside({block: 'b-image', modName: 'index', modVal: index.toString() });
+
+        if(imageBlock) {
+            this._switchTransit(index);
+        } else {
+            this
+                ._drawImage(index)
+                .findBlockInside({block: 'b-image', modName: 'index', modVal: index.toString() })
+                .on('eventImageLoaded', function(arguments) {
+                    if( this._getDataSource().getCurrentIndex() < 0){
+                        arguments.block
+                            .resize() //Маштабируем изображение под размеры окна браузера
+                            .align() //Выравниваем изображение по горизонтали и вертикали
+                            .show(); //делаем изображение видимым
+
+                        this._switchFinalize(index);                    
+                    }else{                        
+                        this._loader.hide();
+                        this._switchTransit(index);
+                    }    
+                }, this);        
+        }
+    },
+
+    _switchTransit: function(index) {
+        console.log('_switchTransit' + index);
+        var currentIndex = this._getDataSource().getCurrentIndex();
+
+        var newImage = this._getDataSource().getImages()[index],
+            oldImage = this._getDataSource().getImages()[currentIndex],
+            newImageBlock = this.findBlockInside({block: 'b-image', modName: 'index', modVal: index.toString() }),
+            oldImageBlock = this.findBlockInside({block: 'b-image', modName: 'index', modVal: currentIndex.toString()});
+
+        var winSize = BEM.DOM.getWindowSize();
+
+        var direction = index > currentIndex ? 1 : -1;
+
+        //TODO переключить миниатюру    
+
+        oldImageBlock.on('eventTransitionOldFinished', function(){
+            oldImageBlock.hide();
+
+            newImageBlock
+                .resize()
+                .align(direction)
+                .show()
+                .transit(direction, this.params.switch_duration, true);            
+        }, this);
+
+        newImageBlock.on('eventTransitionNewFinished', function(){
+            this._switchFinalize(index);
+        }, this);
+
+        oldImageBlock.transit(direction, this.params.switch_duration, false);
+            
     },
 
     /**
-     * [ description]
-     * @return {[type]} [description]
+     * Финальная часть функционала для смены слайдов в галерее
+     * Устанавливаем текущий индекс в модели данных
+     * Переключаем состояние навигационных стрелок
+     * Прячем индикатор загрузки
+     * @param  {Number} index индекс изображения которое будет показано
+     * @return {Object} экземпляр класса b-gallery
      */
-    _initFirstImage: function() {
-        console.log('_initFirstImage');
+    _switchFinalize: function(index) {        
+        this._getDataSource().setCurrentIndex(index);
+                
+        this
+            ._toggelArrows()
+            ._loader.hide();
 
-        var index = this._getDataSource().loadIndex();
+        this.isInSwitchState = false;    
+
+        return this;    
+    },
+
+    /**
+     * Метод для добавления нового блока b-image по index
+     * @param  {Number} index индекс элемента в галерее
+     * @return {Object} экземпляр блока b-gallery 
+     */
+    _drawImage: function(index) {
+
         var img = this._getDataSource().getImages()[index];
+        var size = img.getBySize(this.params.image_size);
 
         this.__self.append(this.domElem, BEMHTML.apply({
             block: 'b-image',
             attrs: {
-                src: img.getBySize(this.params.image_size).href,
+                id: img.params.id,
+                src: size.href,
                 title: img.params.title,
-                alt: img.params.title,
-                data_id: img.params.id,
-                index: index
+                alt: img.params.title
             },
-            mods: { alignable: 'yes', resizable: 'yes' },
+            mods: { index: index },
             js: {
-                size: img.getBySize(this.params.image_size)
+                size: size
             }
         }));
 
-        this.findBlockInside('b-image').on('eventImageLoaded', function(arguments) {
-            console.log('eventImageLoaded');
-
-            arguments.block
-                .resize() //Маштабируем изображение под размеры окна браузера
-                .align() //Выравниваем изображение по горизонтали и вертикали
-                .setMod('visible', 'yes'); //делаем изображение видимым
-
-            //Устанавливаем текущий индекс в модели данных    
-            this._getDataSource().setCurrentIndex(index);
-            
-            //переключаем состояние навигационных стрелок
-            //прячем индикатор загрузки
-            this
-                ._toggelArrows()
-                ._loader.hide();    
-                
-        }, this);
+        return this;
     },
 
     /**
