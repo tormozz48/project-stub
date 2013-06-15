@@ -11,11 +11,6 @@ BEM.decl('d-source', {
     onSetMod : {
 
         'js' : function() {
-            console.log('-- data source initialized --');
-            console.log('- url : ' + this.params.url);
-            console.log('- order : ' + this.params.order);
-            console.log('- limit : ' + this.params.limit);
-
             this._loadData();
         }
 
@@ -46,9 +41,6 @@ BEM.decl('d-source', {
         //добавляем формат данных и callback для JSONP запроса
         url += '&' + this.__self.DATA_FORMAT + '&' + this.__self.CALLBACK;
         
-        console.log('-- url has been created --');
-        console.log('- url : ' + url);
-
         return url;
 	},
 
@@ -68,10 +60,7 @@ BEM.decl('d-source', {
      */
     _parseData : function(data) {
         var l = data.entries.length;
-
-        console.log('-- images has been loaded --');
-        console.log('- images size : ' + l);
-
+        
         if( l > 0 ){
             for( var i = 0; i < l; i++ ){
 
