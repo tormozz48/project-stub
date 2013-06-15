@@ -56,10 +56,10 @@ BEM.DOM.decl('b-gallery', {
                         block: 'b-gallery',
                         elem: 'thumbnail',
                         attrs: {
+                            id: img.params.id,
                             src: img.getBySize(this.params.thumbnail_size).href,
                             title: img.params.title,
                             alt: img.params.title,
-                            data_id: img.params.id,
                             index: i
                         }
                 }));        
@@ -83,20 +83,22 @@ BEM.DOM.decl('b-gallery', {
                 _this.delMod(e.data.domElem, 'hovered');
             })
             .bindTo('thumbnail', 'click', function(e) {
-                this._onThumbnailClick(e);
+                _this._onThumbnailClick(e);
             });    
+        return this; 
     },
 
     /*
     * Обработчик события на клик по миниатюре
     */
     _onThumbnailClick: function(e) {
+        console.log('_onThumbnailClick');
 
         var thumbnail = e.data.domElem;
 
         /* получаем index и data_id как аттрибуты миниатюры */
         var index = thumbnail.attr('index');
-        var data_id = thumbnail.attr('data_id');       
+        var id = thumbnail.attr('id');
 
         /* вычисляем позицию для скроллинга и прокручиваем контейнер с миниатюрами */
         var pos = index * thumbnail.outerWidth(true) - BEM.DOM.getWindowSize().width/2;
@@ -109,7 +111,7 @@ BEM.DOM.decl('b-gallery', {
             .setMod(thumbnail, 'active', 'yes');
 
         /* триггерим BEM событие eventThumbnailClick */
-        this.trigger('eventThumbnailClick', { index: index, id: data_id });
+        this.trigger('eventThumbnailClick', { index: index, id: id });
     },
 
     /**
