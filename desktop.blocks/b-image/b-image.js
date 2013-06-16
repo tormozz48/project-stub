@@ -116,7 +116,7 @@ BEM.DOM.decl('b-image', {
 
         this.domElem.animate(
             newImage ? this._getTransitInConfig(direction) : this._getTransitOutConfig(direction), duration, function(){
-                _this.trigger(newImage ? 'eventTransitionNewFinished' : 'eventTransitionOldFinished');
+                _this.trigger('eventTransitionFinished');
             });
     },
 

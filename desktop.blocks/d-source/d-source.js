@@ -121,7 +121,7 @@ BEM.decl('d-source', {
 
     loadIndex: function() {
         //TODO load index from cookie
-        return 0;
+        return 10;
     }
 
 }, {

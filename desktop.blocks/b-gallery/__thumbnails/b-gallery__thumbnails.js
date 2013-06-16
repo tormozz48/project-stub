@@ -92,26 +92,14 @@ BEM.DOM.decl('b-gallery', {
     * Обработчик события на клик по миниатюре
     */
     _onThumbnailClick: function(e) {
-        console.log('_onThumbnailClick');
 
-        var thumbnail = e.data.domElem;
+        var thumbnail = e.data.domElem,
+            index = thumbnail.attr('index');
 
-        /* получаем index и data_id как аттрибуты миниатюры */
-        var index = thumbnail.attr('index');
-        var id = thumbnail.attr('id');
-
-        /* вычисляем позицию для скроллинга и прокручиваем контейнер с миниатюрами */
-        var pos = index * thumbnail.outerWidth(true) - BEM.DOM.getWindowSize().width/2;
-        this._thumbnails.scrollTo(pos > 0 ? pos + 'px' : 0, 300);
-
-        /* удаляем модификатор active с предыдущей активной миниатюры 
-            и выставляем на ту по которой было произведено нажатие*/
-        this
-            .delMod(this.elem('thumbnail', 'active', 'yes'), 'active')
-            .setMod(thumbnail, 'active', 'yes');
+        this.switchThumbnail(index, thumbnail)
 
         /* триггерим BEM событие eventThumbnailClick */
-        this.trigger('eventThumbnailClick', { index: index, id: id });
+        this.trigger('eventThumbnailClick', { index: index });
     },
 
     /**
@@ -151,6 +139,21 @@ BEM.DOM.decl('b-gallery', {
         e.preventDefault && e.preventDefault();
         
         e.returnValue = false;
+    },
+
+    switchThumbnail: function(index, thumbnail) {
+        
+        var thumbnail = thumbnail || $(this.elem('thumbnail')[index]);
+
+        /* вычисляем позицию для скроллинга и прокручиваем контейнер с миниатюрами */
+        var pos = index * thumbnail.outerWidth(true) - BEM.DOM.getWindowSize().width/2;
+        this._thumbnails.scrollTo(pos > 0 ? pos + 'px' : 0, 300);
+
+        /* удаляем модификатор active с предыдущей активной миниатюры 
+            и выставляем на ту по которой было произведено нажатие*/
+        return this
+            .delMod(this.elem('thumbnail', 'active', 'yes'), 'active')
+            .setMod(thumbnail, 'active', 'yes');
     }
 
 }, {

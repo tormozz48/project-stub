@@ -22,6 +22,10 @@ BEM.DOM.decl('b-gallery', {
                 this._switchToImageWithIndex(this._getDataSource().loadIndex());
         	}, this);
 
+            this.on('eventThumbnailClick', function(event, data){
+                this._switchToImageWithIndex(data.index);
+            }, this);
+
             this
                 ._bindEventsToArrows()
                 ._loader.show();                   
@@ -82,7 +86,7 @@ BEM.DOM.decl('b-gallery', {
     _switchToPreviousImage: function() {
 
         this._getDataSource().isFirst() || 
-            this._switchToImageWithIndex(this._getDataSource().getCurrentIndex() - 1);
+            this._switchToImageWithIndex(+this._getDataSource().getCurrentIndex() - 1);
 
         return this;
     },
@@ -94,7 +98,7 @@ BEM.DOM.decl('b-gallery', {
     _switchToNextImage: function() {
 
         this._getDataSource().isLast() || 
-            this._switchToImageWithIndex(this._getDataSource().getCurrentIndex() + 1);
+            this._switchToImageWithIndex(+this._getDataSource().getCurrentIndex() + 1);
 
         return this;    
     },
@@ -139,7 +143,6 @@ BEM.DOM.decl('b-gallery', {
     },
 
     _switchTransit: function(index) {
-        console.log('_switchTransit' + index);
         var currentIndex = this._getDataSource().getCurrentIndex();
 
         var newImage = this._getDataSource().getImages()[index],
@@ -151,19 +154,24 @@ BEM.DOM.decl('b-gallery', {
 
         var direction = index > currentIndex ? 1 : -1;
 
-        //TODO переключить миниатюру    
 
-        oldImageBlock.on('eventTransitionOldFinished', function(){
-            oldImageBlock.hide();
+        this.switchThumbnail(index);    
+
+        oldImageBlock.on('eventTransitionFinished', function(){
+            oldImageBlock
+                .hide()
+                .un('eventTransitionFinished');
 
             newImageBlock
                 .resize()
                 .align(direction)
                 .show()
-                .transit(direction, this.params.switch_duration, true);            
+                .transit(direction, this.params.switch_duration, true);                            
         }, this);
 
-        newImageBlock.on('eventTransitionNewFinished', function(){
+        newImageBlock.on('eventTransitionFinished', function(){
+            newImageBlock.un('eventTransitionFinished');
+
             this._switchFinalize(index);
         }, this);
 
