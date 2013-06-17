@@ -1,6 +1,6 @@
 ({
     mustDeps: [
-        { block: 'i-bem', elem: 'dom' },
+        { block: 'i-jquery', elem: 'cookie' }
     ],
     shouldDeps: [
         { block: 'd-image' }

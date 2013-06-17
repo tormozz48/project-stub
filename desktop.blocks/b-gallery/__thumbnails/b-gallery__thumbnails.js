@@ -8,7 +8,7 @@ BEM.DOM.decl('b-gallery', {
     onSetMod : {
 
         'js' : function() {
-            
+
             this.__base.apply(this, arguments);
 
             var _this = this;
@@ -17,7 +17,7 @@ BEM.DOM.decl('b-gallery', {
 
             this
                 .bindTo('mouseenter', function(e){
-                    _this._showThumbnails();    
+                    _this._showThumbnails();
                 })
                 .bindTo('mouseleave', function(e){
                     _this._hideThumbnails();
@@ -31,21 +31,23 @@ BEM.DOM.decl('b-gallery', {
                 this.bindToWin('DOMMouseScroll', function(e) {
                     _this._onScroll(e);
                 });
-            }   
+            }
         }
 
     },
 
     /**
      * Метод для создания миниатюр, добавления их в контейнер
-     * и подписки на события наведения 
+     * и подписки на события наведения
      * и отведения курсора мыши и нажатия
      * @param  {Array} images - коллекция данных об изображениях
      * @param  {String} size - размер для миниатюры изобажения
      */
     _drawThumbnails: function() {
-        var images = this._getDataSource().getImages(); 
-        var l = images.length;
+        var _this = this;
+
+        var images = this._getDataSource().getImages(),
+            l = images.length;
 
         if(l > 0) {
             var img = null;
@@ -62,11 +64,9 @@ BEM.DOM.decl('b-gallery', {
                             alt: img.params.title,
                             index: i
                         }
-                }));        
+                }));
             }
         }
-
-        var _this = this;
 
         this.findElem('thumbnail').load(function() {
             _this.setMod($(this), 'loaded', 'yes');
@@ -84,8 +84,8 @@ BEM.DOM.decl('b-gallery', {
             })
             .bindTo('thumbnail', 'click', function(e) {
                 _this._onThumbnailClick(e);
-            });    
-        return this; 
+            });
+        return this;
     },
 
     /*
@@ -127,29 +127,38 @@ BEM.DOM.decl('b-gallery', {
         var delta = 0;
 
         e = e.originalEvent || window.event;
-                
-        if(e.wheelDelta) { 
+
+        if(e.wheelDelta) {
             delta = e.wheelDelta/120;
         }else if (e.detail) {
             delta = -e.detail/3;
         }
-        
-        delta && this._thumbnails.scrollTo(delta > 0 ? '+=50px' : '-=50px', 30);
+
+        var scrl = this._thumbnails.scrollLeft();
+
+        delta && this._thumbnails.scrollLeft(delta > 0 ? scrl + 50 : scrl - 50);
 
         e.preventDefault && e.preventDefault();
-        
+
         e.returnValue = false;
     },
 
+    /**
+     * Метод для переключения миниатюры слайда
+     * @param  {Number} index индекс миниатюры в коллекции
+     * @param  {jQuery} [thumbnail] объект миниатюры (необязательный параметр)
+     * @return {Object} экземпляр класса b-gallery
+     */
     switchThumbnail: function(index, thumbnail) {
-        
+
         var thumbnail = thumbnail || $(this.elem('thumbnail')[index]);
 
         /* вычисляем позицию для скроллинга и прокручиваем контейнер с миниатюрами */
         var pos = index * thumbnail.outerWidth(true) - BEM.DOM.getWindowSize().width/2;
-        this._thumbnails.scrollTo(pos > 0 ? pos + 'px' : 0, 300);
 
-        /* удаляем модификатор active с предыдущей активной миниатюры 
+        this._thumbnails.scrollLeft(pos > 0 ? pos : 0);
+
+        /* удаляем модификатор active с предыдущей активной миниатюры
             и выставляем на ту по которой было произведено нажатие*/
         return this
             .delMod(this.elem('thumbnail', 'active', 'yes'), 'active')

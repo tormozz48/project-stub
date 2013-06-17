@@ -4,14 +4,14 @@
 (function(undefined) {
 
 BEM.DOM.decl('b-gallery', {
-	
+
     onSetMod : {
 
         'js' : function() {
             this._parseConfig();
 
-         	this._dataSource = BEM.create('d-source', this.params.data_source);	
-            
+         	this._dataSource = BEM.create('d-source', this.params.data_source);
+
             this._arrowBack = this.elem('arrow', 'direction','back');
             this._arrowForward = this.elem('arrow', 'direction', 'forward');
             this._loader = this.findBlockInside('b-loader');
@@ -28,7 +28,7 @@ BEM.DOM.decl('b-gallery', {
 
             this
                 ._bindEventsToArrows()
-                ._loader.show();                   
+                ._loader.show();
         }
     },
 
@@ -37,7 +37,7 @@ BEM.DOM.decl('b-gallery', {
      * @return {Object} экземпляр класса b-gallery
      */
     _bindEventsToArrows: function(){
-        var _this = this;    
+        var _this = this;
 
         //когда курсор мыши входит в область окна браузера показываем навигационные стрелки
         //когда курсор мыши уходит из области окна браузера скрываем навигационные стрелки
@@ -66,13 +66,13 @@ BEM.DOM.decl('b-gallery', {
      * @return {Object} экземпляр блока b-gallery
      */
     _parseConfig: function() {
-        
-        // берем размер для миниатюры из конфига или устанавливаем по умолчанию 
+
+        // берем размер для миниатюры из конфига или устанавливаем по умолчанию
         this.params.thumbnail_size = this.params.thumbnail_size || this.__self.DEFAULT_THUMBNAIL_SIZE;
-        
+
         // берем размер для полного изображения из конфига или устанавливаем по умолчанию
         this.params.image_size = this.params.image_size || this.__self.DEFAULT_IMAGE_SIZE;
-        
+
         // берем время для анимации переключения или устанавливаем по умолчанию
         this.params.switch_duration = this.params.switch_duration || this.__self.DEFAULT_SWITCH_DURATION;
 
@@ -85,7 +85,7 @@ BEM.DOM.decl('b-gallery', {
      */
     _switchToPreviousImage: function() {
 
-        this._getDataSource().isFirst() || 
+        this._getDataSource().isFirst() ||
             this._switchToImageWithIndex(+this._getDataSource().getCurrentIndex() - 1);
 
         return this;
@@ -97,29 +97,31 @@ BEM.DOM.decl('b-gallery', {
      */
     _switchToNextImage: function() {
 
-        this._getDataSource().isLast() || 
+        this._getDataSource().isLast() ||
             this._switchToImageWithIndex(+this._getDataSource().getCurrentIndex() + 1);
 
-        return this;    
+        return this;
     },
 
     /**
      * Метод для переключения на изображение с определенным индексом
      * @param  {Number} index - индекс изображения на которое необходимо перейти
-     * @return {type}
      */
     _switchToImageWithIndex: function(index) {
 
+        //проверяем что в это время не происходит смены слайдов
+        //предотвращаем повторные быстрые нажатия
         if(this.isInSwitchState){
             return;
         }
 
         this.isInSwitchState = true;
-        
-        var images = this._getDataSource().getImages();
 
-        var imageBlock = this.findBlockInside({block: 'b-image', modName: 'index', modVal: index.toString() });
+        var images = this._getDataSource().getImages(),
+            imageBlock = this.findBlockInside({block: 'b-image', modName: 'index', modVal: index.toString() });
 
+        //если блок со слайдом уже был отрисован
+        //то просто вызываем следующую стадию
         if(imageBlock) {
             this._switchTransit(index);
         } else {
@@ -127,21 +129,29 @@ BEM.DOM.decl('b-gallery', {
                 ._drawImage(index)
                 .findBlockInside({block: 'b-image', modName: 'index', modVal: index.toString() })
                 .on('eventImageLoaded', function(arguments) {
+
+                    //если это первое изображение
+                    //то просто выставляем его по центру экрана
+                    //маштабируем и показываем
                     if( this._getDataSource().getCurrentIndex() < 0){
                         arguments.block
                             .resize() //Маштабируем изображение под размеры окна браузера
                             .align() //Выравниваем изображение по горизонтали и вертикали
                             .show(); //делаем изображение видимым
 
-                        this._switchFinalize(index);                    
-                    }else{                        
+                        this._switchFinalize(index);
+                    }else{
                         this._loader.hide();
                         this._switchTransit(index);
-                    }    
-                }, this);        
+                    }
+                }, this);
         }
     },
 
+    /**
+     * Метод для реализации механизма замены слайдов
+     * @param  {Number} index индекс слайда который должен быть показан
+     */
     _switchTransit: function(index) {
         var currentIndex = this._getDataSource().getCurrentIndex();
 
@@ -150,33 +160,44 @@ BEM.DOM.decl('b-gallery', {
             newImageBlock = this.findBlockInside({block: 'b-image', modName: 'index', modVal: index.toString() }),
             oldImageBlock = this.findBlockInside({block: 'b-image', modName: 'index', modVal: currentIndex.toString()});
 
+        //вычисляем размер окна браузера
         var winSize = BEM.DOM.getWindowSize();
 
+        //вычисляем направление перемещения слада
         var direction = index > currentIndex ? 1 : -1;
 
-
-        this.switchThumbnail(index);    
-
+        //подписываемся на BEM событие окончания смещения предыдущего слайда
         oldImageBlock.on('eventTransitionFinished', function(){
+
+            //прячем блок предыдущего слайда
+            //отписываемся от события
             oldImageBlock
                 .hide()
                 .un('eventTransitionFinished');
 
+            //переключаем миниатюру
+            this.switchThumbnail(index);
+
+            //изменяем размеры нового блока
+            //выравниваем его, показываем
+            //и запускаем перемещение на центр экрана
             newImageBlock
                 .resize()
                 .align(direction)
                 .show()
-                .transit(direction, this.params.switch_duration, true);                            
+                .transit(direction, this.params.switch_duration/2, true);
         }, this);
 
+        //по окончании перемещения блока следующего слайда
+        //отписываемся от события и вызываем метод для финализации
+        //перелистывания слайдов
         newImageBlock.on('eventTransitionFinished', function(){
             newImageBlock.un('eventTransitionFinished');
-
             this._switchFinalize(index);
         }, this);
 
-        oldImageBlock.transit(direction, this.params.switch_duration, false);
-            
+        oldImageBlock.transit(direction, this.params.switch_duration/2, false);
+
     },
 
     /**
@@ -187,27 +208,28 @@ BEM.DOM.decl('b-gallery', {
      * @param  {Number} index индекс изображения которое будет показано
      * @return {Object} экземпляр класса b-gallery
      */
-    _switchFinalize: function(index) {        
+    _switchFinalize: function(index) {
         this._getDataSource().setCurrentIndex(index);
-                
+        this._getDataSource().saveIndex(index);
+
         this
             ._toggelArrows()
             ._loader.hide();
 
-        this.isInSwitchState = false;    
+        this.isInSwitchState = false;
 
-        return this;    
+        return this;
     },
 
     /**
      * Метод для добавления нового блока b-image по index
      * @param  {Number} index индекс элемента в галерее
-     * @return {Object} экземпляр блока b-gallery 
+     * @return {Object} экземпляр блока b-gallery
      */
     _drawImage: function(index) {
 
-        var img = this._getDataSource().getImages()[index];
-        var size = img.getBySize(this.params.image_size);
+        var img = this._getDataSource().getImages()[index],
+            size = img.getBySize(this.params.image_size);
 
         this.__self.append(this.domElem, BEMHTML.apply({
             block: 'b-image',
@@ -236,7 +258,7 @@ BEM.DOM.decl('b-gallery', {
         return this
                 .toggleMod(this._arrowBack, 'disable', 'yes', this._getDataSource().isFirst())
                 .toggleMod(this._arrowForward, 'disable', 'yes', this._getDataSource().isLast());
-         
+
     },
 
     /**

@@ -9,7 +9,7 @@
         { elem: 'meta', attrs: { name: 'keywords', content: '' }}
     ],
     content:[
-        { 
+        {
             block: 'b-gallery',
             js: {
                 data_source : {
@@ -23,11 +23,10 @@
                 switch_duration: 300
             }
         },
-        
+
         { block: 'i-jquery', mods: { version: '1.8.3' } },
-        { elem: 'js', url: 'jquery_scroll_to.js' },
         { elem: 'js', url: '_index.bemhtml.js'},
         { elem: 'js', url: '_index.js' }
     ]
-    
+
 })
