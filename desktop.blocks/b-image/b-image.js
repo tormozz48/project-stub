@@ -8,7 +8,7 @@ BEM.DOM.decl('b-image', {
     onSetMod : {
 
         'js' : function() {
-         	
+
          	var _this = this;
 
          	this.domElem.load(function(){
@@ -17,7 +17,7 @@ BEM.DOM.decl('b-image', {
 
          	this.bindToWin('resize', function(){
                 _this.hasMod('active') && _this.resize().align();
-            });  
+            });
         }
     },
 
@@ -44,21 +44,21 @@ BEM.DOM.decl('b-image', {
     },
 
     /**
-     * Метод для изменения размера изображения для 
+     * Метод для изменения размера изображения для
      * подгонки его под текущий размер экрана
      * @protected
      * @return {Object} экземпляр блока b-image
      */
     resize: function() {
-        
+
         //установленный размер большого изображения
         var dSize = this.params.size;
 
         //размеры окна браузера
-        var winSize = BEM.DOM.getWindowSize(); 
+        var winSize = BEM.DOM.getWindowSize();
 
         //соотношение сторон изображения
-        var ar = dSize.width/dSize.height; 
+        var ar = dSize.width/dSize.height;
 
         //DOM элемент блока
         var img = this.domElem;
@@ -66,7 +66,7 @@ BEM.DOM.decl('b-image', {
         //В случае когда ширина или высота окна браузера
         //меньше соотвественно ширины или высоты изображения
         //то подгоняем размеры изображения под размер окна браузера
-        //при этом сохраняем пропорции  
+        //при этом сохраняем пропорции
         if(winSize.width < dSize.width || winSize.height < dSize.height) {
             if (winSize.width/winSize.height > ar){
                 img.height(winSize.height);
@@ -93,23 +93,25 @@ BEM.DOM.decl('b-image', {
         var img = this.domElem;
 
         //позиция по горизонтали
-        var ch = direction ? 
-            (direction > 0 ? (-1)*img.width() : winSize.width) : (winSize.width - img.width())/2; 
-        
+        var ch = direction ?
+            (direction > 0 ? (-1)*img.width() : winSize.width) : (winSize.width - img.width())/2;
+
         //позиция по вертикали
-        var cv = (winSize.height - img.height())/2; 
+        var cv = (winSize.height - img.height())/2;
 
         img.css('right', ch + 'px');
         img.css('top', cv + 'px');
 
-        return this;            
+        return this;
     },
 
     /**
-     * [ description]
-     * @param  {Number} direction [description]
-     * @param  {Number} duration  [description]
-     * @param  {Boolean} newImage  [description]
+     * Метод для перемещения DOM элемента блока b-image
+     * @param  {Number} direction направление перемещения блока [-1, 1]
+     * @param  {Number} duration длительность перемещения блока в миллисекундах
+     * @param  {Boolean} newImage булевский флаг (true для слайда который будет показан;
+     * false для слайда который будет скрыт)
+     * @protected
      */
     transit: function(direction, duration, newImage) {
         var _this = this;
@@ -120,14 +122,24 @@ BEM.DOM.decl('b-image', {
             });
     },
 
+    /**
+     * Делаем блока b-image видимым
+     * @protected
+     * @return {Object} экземпляр блока b-image
+     */
     show: function() {
         return this.setMod('visible', 'yes');
     },
 
+    /**
+     * Прячем блок b-image
+     * @protected
+     * @return {Object} экземпляр блока b-image
+     */
     hide: function() {
         return this.delMod('visible');
     }
-    
+
 }, {
 
 });

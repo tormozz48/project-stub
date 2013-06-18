@@ -16,6 +16,7 @@ exports.getTechs = function() {
         'bemdecl.js'    : 'bemdecl.js',
         'deps.js'       : 'deps.js',
         'js'            : 'js-i',
+        'js+bemhtml'    : pjoin(BEMBL_TECHS, 'js+bemhtml.js'),
         'css'           : 'css',
         'ie.css'        : 'ie.css',
         'ie6.css'       : 'ie6.css',

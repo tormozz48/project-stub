@@ -34,6 +34,7 @@ MAKE.decl('BundleNode', {
             'deps.js',
             'bemhtml',
             'js',
+            'js+bemhtml',
             'css',
             'ie.css',
             'ie6.css',

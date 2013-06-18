@@ -34,6 +34,7 @@ BEM.DOM.decl('b-gallery', {
 
     /**
      * Подписываем элементы arrow на события
+     * @private
      * @return {Object} экземпляр класса b-gallery
      */
     _bindEventsToArrows: function(){
@@ -63,6 +64,7 @@ BEM.DOM.decl('b-gallery', {
     /**
      * Метод для парсинга конфигурации и выставления дефолтных параметров
      * в случае отсутствия переданных конфигурационных параметров
+     * @private
      * @return {Object} экземпляр блока b-gallery
      */
     _parseConfig: function() {
@@ -81,6 +83,7 @@ BEM.DOM.decl('b-gallery', {
 
     /**
      * Метод для переключения на предыдущее изображение
+     * @private
      * @return {Object} экземпляр блока b-gallery
      */
     _switchToPreviousImage: function() {
@@ -93,6 +96,7 @@ BEM.DOM.decl('b-gallery', {
 
     /**
      * Метод для переключения на следующее изображение
+     * @private
      * @return {Object} экземпляр блока b-gallery
      */
     _switchToNextImage: function() {
@@ -106,6 +110,7 @@ BEM.DOM.decl('b-gallery', {
     /**
      * Метод для переключения на изображение с определенным индексом
      * @param  {Number} index - индекс изображения на которое необходимо перейти
+     * @private
      */
     _switchToImageWithIndex: function(index) {
 
@@ -151,6 +156,7 @@ BEM.DOM.decl('b-gallery', {
     /**
      * Метод для реализации механизма замены слайдов
      * @param  {Number} index индекс слайда который должен быть показан
+     * @private
      */
     _switchTransit: function(index) {
         var currentIndex = this._getDataSource().getCurrentIndex();
@@ -206,6 +212,7 @@ BEM.DOM.decl('b-gallery', {
      * Переключаем состояние навигационных стрелок
      * Прячем индикатор загрузки
      * @param  {Number} index индекс изображения которое будет показано
+     * @private
      * @return {Object} экземпляр класса b-gallery
      */
     _switchFinalize: function(index) {
@@ -224,6 +231,7 @@ BEM.DOM.decl('b-gallery', {
     /**
      * Метод для добавления нового блока b-image по index
      * @param  {Number} index индекс элемента в галерее
+     * @private
      * @return {Object} экземпляр блока b-gallery
      */
     _drawImage: function(index) {
@@ -252,6 +260,7 @@ BEM.DOM.decl('b-gallery', {
      * Метод для блокирования/разблокирования навигационных стрелок
      * Если мы находимся на первой картине в гелерее, то блокируется стрелка назад
      * Если мы находимся на последней картине в галерее, то блокируется стрелка вперед
+     * @private
      * @return {Object} экземпляр блока b-gallery
      */
     _toggelArrows: function() {
@@ -263,6 +272,7 @@ BEM.DOM.decl('b-gallery', {
 
     /**
      * Возвращает объект dataSource для галереи
+     * @private
      * @return {Object} объект dataSource
      */
     _getDataSource: function() {

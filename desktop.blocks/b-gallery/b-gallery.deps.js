@@ -3,8 +3,7 @@
       tech: 'js',
       mustDeps: [
           {
-              block: 'i-bem',
-              elem: 'html',
+              block: 'b-gallery',
               tech: 'bemhtml'
           }
       ]
