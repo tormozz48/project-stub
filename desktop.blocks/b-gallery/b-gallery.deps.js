@@ -36,7 +36,6 @@
           },
           {
             mods: {
-              'transit': 'yes',
               'slideshow': 'yes',
               'key_switch': 'yes'
             }

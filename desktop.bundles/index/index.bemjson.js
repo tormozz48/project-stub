@@ -26,7 +26,6 @@
         },
 
         { block: 'i-jquery', mods: { version: '1.8.3' } },
-        // { elem: 'js', url: '_index.bemhtml.js'},
         { elem: 'js', url: '_index.js' }
     ]
 

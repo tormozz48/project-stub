@@ -120,9 +120,12 @@ BEM.decl('d-source', {
      * Метод для установки текущего индекса в галерее
      * @protected
      * @param  {Number} index индекс, который мы выставляем в галерее
+     * @return {Object} экземпляр блока d-source
      */
     setCurrentIndex: function(index) {
         this._current_index = index;
+
+        return this;
     },
 
     /**

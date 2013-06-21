@@ -16,19 +16,18 @@ BEM.DOM.decl('b-gallery', {
             this._arrowForward = this.elem('arrow', 'direction', 'forward');
             this._loader = this.findBlockInside('b-loader');
 
-            //Подписываем блок dataSource на событие eventDataLoaded окончания загрузки данных
+            //Подписываемся специфические BEM события окончания загрузки данных
+            //и клику по превью изображения
         	this._getDataSource().on('eventDataLoaded', function(){
-        		this._drawThumbnails();
+                this._drawThumbnails();
                 this._switchToImageWithIndex(this._getDataSource().loadIndex());
-        	}, this);
+            }, this);
 
             this.on('eventThumbnailClick', function(event, data){
                 this._switchToImageWithIndex(data.index);
-            }, this);
-
-            this
-                ._bindEvents()
-                ._loader.show();
+            }, this)
+            ._bindEvents()
+            ._loader.show();
         }
     },
 
@@ -116,11 +115,11 @@ BEM.DOM.decl('b-gallery', {
 
         //проверяем что в это время не происходит смены слайдов
         //предотвращаем повторные быстрые нажатия
-        if(this.isInSwitchState){
+        if(this._isInTransitState) {
             return;
         }
 
-        this.isInSwitchState = true;
+        this._isInTransitState = true;
 
         var images = this._getDataSource().getImages(),
             imageBlock = this.findBlockInside({block: 'b-image', modName: 'index', modVal: index.toString() });
@@ -216,16 +215,15 @@ BEM.DOM.decl('b-gallery', {
      * @return {Object} экземпляр класса b-gallery
      */
     _switchFinalize: function(index) {
-        this._getDataSource().setCurrentIndex(index);
-        this._getDataSource().saveIndex(index);
+        this._getDataSource()
+            .setCurrentIndex(index)
+            .saveIndex(index);
 
-        this
+        this._isInTransitState = false;
+
+        return this
             ._toggelArrows()
             ._loader.hide();
-
-        this.isInSwitchState = false;
-
-        return this;
     },
 
     /**
