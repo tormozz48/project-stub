@@ -16,7 +16,7 @@ BEM.DOM.decl('b-image', {
          	});
 
          	this.bindToWin('resize', function(){
-                _this.hasMod('active') && _this.resize().align();
+                _this.hasMod('visible') && _this.resize().align();
             });
         }
     },
