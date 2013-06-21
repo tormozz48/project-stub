@@ -33,7 +33,7 @@ BEM.DOM.decl('b-gallery', {
     },
 
     /**
-     * Подписываем элементы arrow на события
+     * Подписываемся на события
      * @private
      * @return {Object} экземпляр класса b-gallery
      */
@@ -44,9 +44,6 @@ BEM.DOM.decl('b-gallery', {
         //когда курсор мыши уходит из области окна браузера скрываем навигационные стрелки
         //Подписываем элемент стрелки возврата на предыдущее изображение на событие click
         //Подписываем элемент стрелки перехода на следующее изображение на событие click
-        //Подписываемся на события клавиатуры:
-        //по нажатию на стрелку вправо переходим на следующий слайд
-        //по нажатию на стрелку влево возвращаемся на предыдущий слайд
         return this
             .bindToDoc('mouseenter', function() {
                 _this.setMod(_this._arrowBack, 'visible', 'yes');
@@ -61,12 +58,6 @@ BEM.DOM.decl('b-gallery', {
             })
             .bindTo(this._arrowForward, 'click', function() {
                 _this._switchToNextImage();
-            })
-            .bindToWin('keydown', function(e) {
-                var key = e.charCode || e.keyCode || 0;
-
-                key == 37  && _this._switchToPreviousImage();
-                key == 39 && _this._switchToNextImage();
             });
     },
 

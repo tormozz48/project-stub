@@ -11,6 +11,7 @@
     content:[
         {
             block: 'b-gallery',
+            mods: {key_switch: 'yes'},
             js: {
                 data_source : {
                     url: 'http://api-fotki.yandex.ru/api/top/',

@@ -34,6 +34,13 @@
                 'loaded': 'yes'
             }
           },
+          {
+            mods: {
+              'transit': 'yes',
+              'slideshow': 'yes',
+              'key_switch': 'yes'
+            }
+          },
         	{ block: 'b-image' },
           { block: 'b-loader' }
       ]
