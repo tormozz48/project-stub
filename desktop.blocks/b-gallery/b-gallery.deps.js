@@ -11,6 +11,7 @@
   {
       mustDeps: [
           { block: 'i-bem', elems: ['dom', 'html'] },
+          { block: 'i-system' },
           { block: 'd-source' }
       ],
       shouldDeps: [
@@ -36,7 +37,7 @@
           },
           {
             mods: {
-              'slideshow': 'yes',
+              'slide_show': 'yes',
               'key_switch': 'yes'
             }
           },

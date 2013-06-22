@@ -263,8 +263,8 @@ BEM.DOM.decl('b-gallery', {
      */
     _toggelArrows: function() {
         return this
-                .toggleMod(this._arrowBack, 'disable', 'yes', this._getDataSource().isFirst())
-                .toggleMod(this._arrowForward, 'disable', 'yes', this._getDataSource().isLast());
+            .toggleMod(this._arrowBack, 'disable', 'yes', this._getDataSource().isFirst())
+            .toggleMod(this._arrowForward, 'disable', 'yes', this._getDataSource().isLast());
 
     },
 
