@@ -2,10 +2,10 @@
 {
 	position: fixed;
 	z-index: -1;
-	display: inline;
 
-	border-radius: 10px;
-	box-shadow: 0 0 3px #fff;
-
+    display: inline;
 	visibility: hidden;
+
+    border-radius: 10px;
+    box-shadow: 0 0 3px #ffffff;
 }

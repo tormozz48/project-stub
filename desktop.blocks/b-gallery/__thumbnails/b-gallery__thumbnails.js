@@ -72,20 +72,10 @@ BEM.DOM.decl('b-gallery', {
             _this.setMod($(this), 'loaded', 'yes');
         });
 
-        /*Устанавливаем модификатор hovered при наведении мыши на thumbnail*/
-        /*Убираем модификатор hovered когда уводим мышь с thumbnail-а*/
         /*Добавляем обработку клика на миниатюре изображения*/
-        this
-            .bindTo('thumbnail', 'mouseenter', function(e) {
-                _this.setMod(e.data.domElem, 'hovered', 'yes');
-            })
-            .bindTo('thumbnail', 'mouseleave', function(e) {
-                _this.delMod(e.data.domElem, 'hovered');
-            })
-            .bindTo('thumbnail', 'click', function(e) {
-                _this._onThumbnailClick(e);
-            });
-        return this;
+        return this.bindTo('thumbnail', 'click', function(e) {
+            _this._onThumbnailClick(e);
+        });
     },
 
     /*
@@ -96,7 +86,7 @@ BEM.DOM.decl('b-gallery', {
         var thumbnail = e.data.domElem,
             index = thumbnail.attr('index');
 
-        this.switchThumbnail(index, thumbnail)
+        this.switchThumbnail(index, thumbnail);
 
         /* триггерим BEM событие eventThumbnailClick */
         this.trigger('eventThumbnailClick', { index: index });

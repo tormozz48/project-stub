@@ -1,5 +1,6 @@
 .b-gallery__arrow_disable_yes
 {
-	opacity: 0.2;
 	cursor: default;
+
+    opacity: 0.2;
 }

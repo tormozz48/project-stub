@@ -30,8 +30,7 @@
           {
             elem: 'thumbnail',
             mods: {
-                'hovered': 'yes',
-                'active':  'yes',
+                'active': 'yes',
                 'loaded': 'yes'
             }
           },

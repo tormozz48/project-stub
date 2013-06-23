@@ -135,8 +135,9 @@ BEM.decl('d-source', {
      * @return {Number} индекс найденного изоборажения
      */
     loadIndex: function() {
-        var index = $.cookie(this.__self.COOKIE_NAME);
-        return index >= 0 ? index : 0
+        // var index = $.cookie(this.__self.COOKIE_NAME);
+        // return index >= 0 ? index : 0
+        return 0;
     },
 
     /**
