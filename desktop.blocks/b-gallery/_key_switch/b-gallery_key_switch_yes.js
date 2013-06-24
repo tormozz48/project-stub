@@ -22,8 +22,8 @@ BEM.DOM.decl({ block: 'b-gallery', modName: 'key_switch', modVal: 'yes'}, {
         return this.bindToWin('keydown', function(e) {
             var key = e.charCode || e.keyCode || 0;
 
-            key == 37  && _this._switchToPreviousImage();
-            key == 39 && _this._switchToNextImage();
+            key == 37  && _this._switchToPreviousImage({ source: 'keyboard' });
+            key == 39 && _this._switchToNextImage({ source: 'keyboard' });
         });
     }
 

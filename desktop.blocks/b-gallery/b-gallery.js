@@ -20,11 +20,11 @@ BEM.DOM.decl('b-gallery', {
             //и клику по превью изображения
         	this._getDataSource().on('eventDataLoaded', function(){
                 this._drawThumbnails();
-                this._switchToImageWithIndex(this._getDataSource().loadIndex());
+                this._switchToImageWithIndex(this._getDataSource().loadIndex(), { source: 'datasource' });
             }, this);
 
             this.on('eventThumbnailClick', function(event, data){
-                this._switchToImageWithIndex(data.index);
+                this._switchToImageWithIndex(data.index, { source: 'thumbnail_click' });
             }, this)
             ._bindEvents()
             ._loader.show();
@@ -53,10 +53,10 @@ BEM.DOM.decl('b-gallery', {
                 _this.delMod(_this._arrowForward, 'visible');
             })
             .bindTo(this._arrowBack, 'click', function() {
-                _this._switchToPreviousImage();
+                _this._switchToPreviousImage({ source: 'arrow_click' });
             })
             .bindTo(this._arrowForward, 'click', function() {
-                _this._switchToNextImage();
+                _this._switchToNextImage({ source: 'arrow_click' });
             });
     },
 
@@ -82,26 +82,28 @@ BEM.DOM.decl('b-gallery', {
 
     /**
      * Метод для переключения на предыдущее изображение
+     * @param [{Object}] data - хэш  с дополнительными данными
      * @private
      * @return {Object} экземпляр блока b-gallery
      */
-    _switchToPreviousImage: function() {
+    _switchToPreviousImage: function(data) {
 
         this._getDataSource().isFirst() ||
-            this._switchToImageWithIndex(+this._getDataSource().getCurrentIndex() - 1);
+            this._switchToImageWithIndex(+this._getDataSource().getCurrentIndex() - 1, data);
 
         return this;
     },
 
     /**
      * Метод для переключения на следующее изображение
+     * @param [{Object}] data - хэш  с дополнительными данными
      * @private
      * @return {Object} экземпляр блока b-gallery
      */
-    _switchToNextImage: function() {
+    _switchToNextImage: function(data) {
 
         this._getDataSource().isLast() ||
-            this._switchToImageWithIndex(+this._getDataSource().getCurrentIndex() + 1);
+            this._switchToImageWithIndex(+this._getDataSource().getCurrentIndex() + 1, data);
 
         return this;
     },
@@ -109,9 +111,12 @@ BEM.DOM.decl('b-gallery', {
     /**
      * Метод для переключения на изображение с определенным индексом
      * @param  {Number} index - индекс изображения на которое необходимо перейти
+     * @param [{Object}] data - хэш  с дополнительными данными
      * @private
      */
-    _switchToImageWithIndex: function(index) {
+    _switchToImageWithIndex: function(index, data) {
+
+        this.trigger('eventSwitchToImageWithIndex', data);
 
         //проверяем что в это время не происходит смены слайдов
         //предотвращаем повторные быстрые нажатия

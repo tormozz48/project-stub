@@ -20,34 +20,29 @@ BEM.DOM.decl({ block: 'b-gallery', modName: 'slide_show', modVal: 'yes'}, {
         return this.bindToWin('keydown', function(e) {
             var key = e.charCode || e.keyCode || 0;
 
-            key == 13 && this._toggleSlideShow();
+            key == 13 && _this.toggleMod(_this.elem('slide_show'), 'slide', 'yes');
         });
     },
 
-    _toggleSlideShow: function() {
+    /**
+     * Метод для парсинга конфигурации и выставления дефолтных параметров
+     * в случае отсутствия переданных конфигурационных параметров
+     * @private
+     * @return {Object} экземпляр блока b-gallery
+     */
+    _parseConfig: function() {
 
-        this._count = 0;
+        this.__base.apply(this, arguments);
 
-        if(this._isInSlideShowState) {
-            this._isInSlideShowState = false;
-            this.channel('sys').un('tick', this._onTick, this );
-        }else{
-            this._isInSlideShowState = true;
-            this.channel('sys').on('tick', this._onTick, this );
-        }
-    },
+        // берем время для показа одного слайда в режиме слайд-шоу или устанавливаем по умолчанию
+        this.params.slide_show_switch_time = this.params.slide_show_switch_time || this.__self.SLIDE_SHOW_SWITCH_TIME;
 
-    _onTick: function(){
-        this._count++;
-
-        if(this._count%50 == 0) {
-             this._getDataSource().isLast() ? this._switchToImageWithIndex(0) : this._switchToNextImage();
-             this._count = 0;
-        }
+        return this;
     }
 
 }, {
 
+    SLIDE_SHOW_SWITCH_TIME: 2000
 
 });
 

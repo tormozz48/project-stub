@@ -1,13 +1,14 @@
-block b-gallery { 
-	
+block b-gallery {
+
 	js: true,
 
 	content: [
 		{ elem: 'arrow', mods: { direction: 'back', visible: 'yes' }},
         { elem: 'arrow', mods: { direction: 'forward', visible: 'yes' }},
         { elem: 'thumbnails' },
+        { elem: 'slide_show' },
         { block: 'b-loader' }
 
 	]
-		
+
 }

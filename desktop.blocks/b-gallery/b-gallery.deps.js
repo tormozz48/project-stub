@@ -18,9 +18,9 @@
         	{
         		elem: 'arrow',
         		mods: {
-                  'direction': ['forward','back'],
-                  'visible': 'yes',
-                  'disable': 'yes'
+                'direction': ['forward','back'],
+                'visible': 'yes',
+                'disable': 'yes'
             }
         	},
         	{
@@ -32,6 +32,12 @@
             mods: {
                 'active': 'yes',
                 'loaded': 'yes'
+            }
+          },
+          {
+            elem: 'slide_show',
+            mods: {
+                'slide': 'yes'
             }
           },
           {
