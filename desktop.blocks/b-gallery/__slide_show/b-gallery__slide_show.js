@@ -1,8 +1,5 @@
 /** @requires BEM */
 /** @requires BEM.DOM */
-
-(function(undefined) {
-
 BEM.DOM.decl('b-gallery', {
 
     onElemSetMod : {
@@ -49,8 +46,4 @@ BEM.DOM.decl('b-gallery', {
         this._count++;
     }
 
-}, {
-    //TODO nothing
 });
-
-})();

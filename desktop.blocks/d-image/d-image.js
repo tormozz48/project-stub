@@ -1,8 +1,5 @@
 /** @requires BEM */
 /** @requires BEM.DOM */
-
-(function(undefined) {
-
 BEM.decl('d-image', {
 
     /**
@@ -23,20 +20,15 @@ BEM.decl('d-image', {
 	 * @return {Object} объект для хранения параметров размера изображения
 	 */
 	_getLargestImage: function() {
-		
-		var largest_img = null;
+
+		var largestImg = null;
 
 		for(var i in this.params.sizes){
-			if( !largest_img || this.params.sizes[i].width > largest_img.width){
-				largest_img = this.params.sizes[i];
+			if( !largestImg || this.params.sizes[i].width > largestImg.width){
+				largestImg = this.params.sizes[i];
 			}
 		}
 
-		return largest_img;
+		return largestImg;
 	}
-
-}, {
-	//TODO nothing
 });
-
-})();

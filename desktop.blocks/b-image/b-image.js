@@ -1,8 +1,5 @@
 /** @requires BEM */
 /** @requires BEM.DOM */
-
-(function(undefined) {
-
 BEM.DOM.decl('b-image', {
 
     onSetMod : {
@@ -123,7 +120,7 @@ BEM.DOM.decl('b-image', {
     },
 
     /**
-     * Делаем блока b-image видимым
+     * Делаем блок b-image видимым
      * @protected
      * @return {Object} экземпляр блока b-image
      */
@@ -140,8 +137,4 @@ BEM.DOM.decl('b-image', {
         return this.delMod('visible');
     }
 
-}, {
-
 });
-
-})();

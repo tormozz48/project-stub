@@ -1,8 +1,5 @@
 /** @requires BEM */
 /** @requires BEM.DOM */
-
-(function(undefined) {
-
 BEM.DOM.decl('b-gallery', {
 
     onSetMod : {
@@ -10,7 +7,7 @@ BEM.DOM.decl('b-gallery', {
         'js' : function() {
             this._parseConfig();
 
-         	this._dataSource = BEM.create('d-source', this.params.data_source);
+         	this._dataSource = BEM.create('d-source', this.params.dataSource);
 
             this._arrowBack = this.elem('arrow', 'direction','back');
             this._arrowForward = this.elem('arrow', 'direction', 'forward');
@@ -69,13 +66,13 @@ BEM.DOM.decl('b-gallery', {
     _parseConfig: function() {
 
         // берем размер для миниатюры из конфига или устанавливаем по умолчанию
-        this.params.thumbnail_size = this.params.thumbnail_size || this.__self.DEFAULT_THUMBNAIL_SIZE;
+        this.params.thumbnailSize = this.params.thumbnailSize || this.__self.DEFAULT_THUMBNAIL_SIZE;
 
         // берем размер для полного изображения из конфига или устанавливаем по умолчанию
-        this.params.image_size = this.params.image_size || this.__self.DEFAULT_IMAGE_SIZE;
+        this.params.imageSize = this.params.imageSize || this.__self.DEFAULT_IMAGE_SIZE;
 
         // берем время для анимации переключения или устанавливаем по умолчанию
-        this.params.switch_duration = this.params.switch_duration || this.__self.DEFAULT_SWITCH_DURATION;
+        this.params.switchDuration = this.params.switchDuration || this.__self.DEFAULT_SWITCH_DURATION;
 
         return this;
     },
@@ -195,7 +192,7 @@ BEM.DOM.decl('b-gallery', {
                 .resize()
                 .align(direction)
                 .show()
-                .transit(direction, this.params.switch_duration/2, true);
+                .transit(direction, this.params.switchDuration/2, true);
         }, this);
 
         //по окончании перемещения блока следующего слайда
@@ -206,7 +203,7 @@ BEM.DOM.decl('b-gallery', {
             this._switchFinalize(index);
         }, this);
 
-        oldImageBlock.transit(direction, this.params.switch_duration/2, false);
+        oldImageBlock.transit(direction, this.params.switchDuration/2, false);
 
     },
 
@@ -240,7 +237,7 @@ BEM.DOM.decl('b-gallery', {
     _drawImage: function(index) {
 
         var img = this._getDataSource().getImages()[index],
-            size = img.getBySize(this.params.image_size);
+            size = img.getBySize(this.params.imageSize);
 
         this.__self.append(this.domElem, BEMHTML.apply({
             block: 'b-image',
@@ -291,5 +288,3 @@ BEM.DOM.decl('b-gallery', {
 
     DEFAULT_SWITCH_DURATION: 300
 });
-
-})();

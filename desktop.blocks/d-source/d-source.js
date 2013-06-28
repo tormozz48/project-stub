@@ -1,6 +1,4 @@
 /** @requires BEM */
-(function(undefined) {
-
 BEM.decl('d-source', {
 
     _images: [],
@@ -21,10 +19,9 @@ BEM.decl('d-source', {
      * @return {String} - url для загрузки файлов
      */
 	_createUrl : function() {
-        var url = null;
 
         //добавляем url из параметров или берем url по умолчанию
-        url = this.params.url || this.__self.DEFAULT_URL;
+        var url = this.params.url || this.__self.DEFAULT_URL;
 
         //добавляем order из параметров или берем order по умолчанию
         url += this.params.order ? this.params.order : this.__self.ORDERS[0];
@@ -162,5 +159,3 @@ BEM.decl('d-source', {
 
     COOKIE_NAME: 'bem_gallery_index'
 });
-
-})();

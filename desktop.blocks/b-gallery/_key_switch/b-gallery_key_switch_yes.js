@@ -1,8 +1,5 @@
 /** @requires BEM */
 /** @requires BEM.DOM */
-
-(function(undefined) {
-
 BEM.DOM.decl({ block: 'b-gallery', modName: 'key_switch', modVal: 'yes'}, {
 
     /**
@@ -27,8 +24,4 @@ BEM.DOM.decl({ block: 'b-gallery', modName: 'key_switch', modVal: 'yes'}, {
         });
     }
 
-}, {
-    //TODO nothing
 });
-
-})();

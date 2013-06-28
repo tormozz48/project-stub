@@ -1,8 +1,5 @@
 /** @requires BEM */
 /** @requires BEM.DOM */
-
-(function(undefined) {
-
 BEM.DOM.decl('b-gallery', {
 
     onSetMod : {
@@ -59,7 +56,7 @@ BEM.DOM.decl('b-gallery', {
                         elem: 'thumbnail',
                         attrs: {
                             id: img.params.id,
-                            src: img.getBySize(this.params.thumbnail_size).href,
+                            src: img.getBySize(this.params.thumbnailSize).href,
                             title: img.params.title,
                             alt: img.params.title,
                             index: i
@@ -155,8 +152,4 @@ BEM.DOM.decl('b-gallery', {
             .setMod(thumbnail, 'active', 'yes');
     }
 
-}, {
-	//TODO nothing
 });
-
-})();

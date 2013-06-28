@@ -1,12 +1,9 @@
 /** @requires BEM */
 /** @requires BEM.DOM */
-
-(function(undefined) {
-
 BEM.DOM.decl('b-loader', {
 
     onSetMod : {
-        
+
         'visible' : {
 
             'yes' : function(mod, val, oldVal) {
@@ -35,8 +32,4 @@ BEM.DOM.decl('b-loader', {
     	return this.delMod('visible');
     }
 
-}, {
-
 });
-
-})();
