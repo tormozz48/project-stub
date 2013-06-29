@@ -1,6 +1,6 @@
 /** @requires BEM */
 /** @requires BEM.DOM */
-BEM.DOM.decl({ block: 'b-gallery', modName: 'key_switch', modVal: 'yes'}, {
+BEM.DOM.decl({ block: 'b-gallery', modName: 'key-switch', modVal: 'yes'}, {
 
     /**
      * Подписываемся на события

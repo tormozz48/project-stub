@@ -6,7 +6,7 @@ block b-gallery {
 		{ elem: 'arrow', mods: { direction: 'back', visible: 'yes' }},
         { elem: 'arrow', mods: { direction: 'forward', visible: 'yes' }},
         { elem: 'thumbnails' },
-        { elem: 'slide_show' },
+        { elem: 'slide-show' },
         { block: 'b-loader' }
 
 	]

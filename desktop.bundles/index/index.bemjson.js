@@ -12,8 +12,8 @@
         {
             block: 'b-gallery',
             mods: {
-                'key_switch': 'yes',
-                'slide_show': 'yes'
+                'key-switch': 'yes',
+                'slide-show': 'yes'
             },
             js: {
                 dataSource : {

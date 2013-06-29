@@ -35,14 +35,14 @@
             }
           },
           {
-            elem: 'slide_show',
+            elem: 'slide-show',
             mods: {
                 'slide': 'yes'
             }
           },
           {
             mods: {
-              'slide_show': 'yes',
+              'slide-show': 'yes',
               'key_switch': 'yes'
             }
           },

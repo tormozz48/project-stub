@@ -1,9 +1,0 @@
-/*
-block b-gallery, mod 'slide_show yes'  {
-
-    content: [
-        applyNext(),
-        { elem: 'slide_show' }
-    ]
-}
-*/

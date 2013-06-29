@@ -3,7 +3,7 @@
 
 (function(undefined) {
 
-BEM.DOM.decl({ block: 'b-gallery', modName: 'slide_show', modVal: 'yes'}, {
+BEM.DOM.decl({ block: 'b-gallery', modName: 'slide-show', modVal: 'yes'}, {
 
     /**
      * Подписываемся на события
@@ -20,7 +20,7 @@ BEM.DOM.decl({ block: 'b-gallery', modName: 'slide_show', modVal: 'yes'}, {
         return this.bindToWin('keydown', function(e) {
             var key = e.charCode || e.keyCode || 0;
 
-            key == 13 && _this.toggleMod(_this.elem('slide_show'), 'slide', 'yes');
+            key == 13 && _this.toggleMod(_this.elem('slide-show'), 'slide', 'yes');
         });
     },
 
@@ -35,7 +35,7 @@ BEM.DOM.decl({ block: 'b-gallery', modName: 'slide_show', modVal: 'yes'}, {
         this.__base.apply(this, arguments);
 
         // берем время для показа одного слайда в режиме слайд-шоу или устанавливаем по умолчанию
-        this.params.slide_show_switch_time = this.params.slide_show_switch_time || this.__self.SLIDE_SHOW_SWITCH_TIME;
+        this.params.slideShowSwitchTime = this.params.slideShowSwitchTime || this.__self.SLIDE_SHOW_SWITCH_TIME;
 
         return this;
     }
